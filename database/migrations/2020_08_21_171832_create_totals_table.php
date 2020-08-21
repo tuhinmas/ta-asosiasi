@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransaksisTable extends Migration
+class CreateTotalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateTransaksisTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaksi', function (Blueprint $table) {
+        Schema::create('total', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('invoice')->index();
-            $table->uuid('product_id');
-            $table->string('product_name');
-            $table->integer('qty');
+            $table->string('invoice');
+            $table->float('total');
             $table->timestamps();
-            $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products');
+            $table->foreign('invoice')
+                  ->references('invoice')
+                  ->on('transaksi');
         });
     }
 
@@ -33,6 +31,6 @@ class CreateTransaksisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaksi');
+        Schema::dropIfExists('total');
     }
 }

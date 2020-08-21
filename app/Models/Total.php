@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class Order extends Model
+class Total extends Model
 {
+    protected $table = "total";
+
     protected static function boot(){
         static::creating(function($model){
             if(! $model->getKey()){
