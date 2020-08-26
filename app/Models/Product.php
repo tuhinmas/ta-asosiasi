@@ -22,4 +22,8 @@ class Product extends Model
     public function getKeyType(){
         return 'string';
     }
+
+    public function transaksi(){
+        return $this->belongsTo('App\Models\Transaksi');
+    }
 }

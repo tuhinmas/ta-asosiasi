@@ -23,4 +23,8 @@ class Transaksi extends Model
     public function getKeyType(){
         return 'string';
     }
+
+    public function products(){
+        return $this->hasMany('App\Models\Product');
+    }
 }
