@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.laravel-vue-js-crud-spa')
 
 @section('content')
 <div class="container">

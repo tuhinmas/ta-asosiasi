@@ -26,9 +26,11 @@
   <link rel="stylesheet" href="{{ asset('/template/plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}" /> --}}
-
+  <!--
+We have to include public/css/app.css
+Add the following code inside head tag 
+-->
+<link rel="stylesheet" type="text/css" href="/css/app.css">
   @stack('script-head')
   @stack("css")
 </head>
@@ -107,10 +109,20 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('/template/dist/js/demo.js')}}"></script>
 
-<script defer src="{{ mix('js/app.js') }}"></script>
+ <!-- 
+We have to include public/js/app.js 
+Add the following code before end of body tag
+-->
+@if( app()->environment('local') )
+  <script src="{{ mix('js/app.js') }}"></script>
+@else
+  <script src="{{ url('/js/app.js') }}"></script>
+@endif 
 
 @stack('script')
 @stack ("scripts")
 
 </body>
 </html>
+
+ 
