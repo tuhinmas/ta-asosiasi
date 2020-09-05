@@ -3,7 +3,7 @@ import VueRouter from "vue-router"; // We import /Vue router from /vue-router fi
 
 Vue.use(VueRouter) 
 
-import UserManagement from "./components/usermanagement";
+import UserManagement from "./components/UserManagement";
 
 const router = new VueRouter({ // Then we register route for User management module.
   routes: [

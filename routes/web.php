@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layouts/laravel-vue-js-crud-spa');
+    return view('layouts/main');
 });
 Route::get('404',function(){
     return view('errors.404');
@@ -39,14 +39,28 @@ Route::get('xxx',function(){
 Route::get('/users',function(){
     return view('user.daftar_user');
 });
+Route::get('/cek',function(){
+    return view('user.update_user');
+});
 
-Route::get('admin', function () {
+// Route::get('admin', function () {
     // if (Auth::check()) {
     //     return view('admin');
     // }
-    return view('admin');
+    // return view('admin');
 
-});
+// });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Route to handle page reload in Vue except for api routes
+// Route::get('/{any?}', function (){
+//     return view('welcome');
+// })->where('any', '^(?!api\/)[\/\w\.-]*');
+
+// Route::get('/{any}', 'API\FronController@index')->where('any', '.*');
 
 Auth::routes();
 

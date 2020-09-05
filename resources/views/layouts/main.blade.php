@@ -31,8 +31,15 @@
 
   @stack('script-head')
   @stack("css")
+
+  <!--
+We have to include public/css/app.css
+Add the following code inside head tag 
+-->
+{{-- <link rel="stylesheet" type="text/css" href="/css/app.css">  --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -109,8 +116,20 @@
 
 <script defer src="{{ mix('js/app.js') }}"></script>
 
+
+
 @stack('script')
 @stack ("scripts")
+
+ <!-- 
+We have to include public/js/app.js 
+Add the following code before end of body tag
+-->
+@if( app()->environment('local') )
+  <script src="{{ mix('js/app.js') }}"></script>
+@else
+  <script src="{{ url('/js/app.js') }}"></script>
+@endif 
 
 </body>
 </html>

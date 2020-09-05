@@ -11,7 +11,6 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-    require('admin-lte');
 } catch (e) {}
 
 /**
@@ -21,10 +20,6 @@ try {
  */
 
 window.axios = require('axios');
-
-// Add the ES2015 formation
-// import axios from 'axios';
-// window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

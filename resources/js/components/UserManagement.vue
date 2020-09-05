@@ -1,4 +1,4 @@
-<!-- We put our HTML code inside template tag -->
+ <!-- We put our HTML code inside template tag -->
 <template>
   <div class="row">
     <div class="col-12">
@@ -31,7 +31,6 @@
                   <a href="" @click.prevent="editUser(user)">
                     <i class="fa fa-edit"></i>
                   </a>
-                  <span>&nbsp; &nbsp;</span>
                   <a href="" @click.prevent="deleteUser(user.id)">
                     <i class="fa fa-trash"></i>
                   </a>
@@ -129,7 +128,6 @@
         this.form.reset(); // v form reset
         $('#exampleModal').modal('show'); // show modal
       },
-
       // /createUser() function. Function we use to store user details by calling api/users method POST (carrying form input data).
       createUser() {
         // request post
@@ -149,7 +147,6 @@
           console.log('transaction fail');
         });
       },
-
       // /editUser() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating user details, 4. Fill form with user details.
       editUser(user){
         this.isFormCreateUserMode = false;
@@ -158,7 +155,6 @@
         $('#exampleModal').modal('show'); // show modal
         this.form.fill(user);
       },
-
       // /updateUser() function. Function we use to update user details by calling api/users/{id} method PUT (carrying form input data).
       updateUser(){
         // request put
@@ -177,7 +173,6 @@
           console.log('transaction fail');
         });
       },    
-
       // /deleteUser() function. Function we use to delete user record by calling api/users/{id} method DELETE.
       deleteUser(id) {
         // sweet alert confirmation
