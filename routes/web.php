@@ -10,46 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('layouts/main');
-});
-Route::get('404',function(){
-    return view('errors.404');
-});
-Route::get('500',function(){
-    return view('errors.500');
+Route::middleware('auth')->group(function(){
+    Route::view('/','layouts.main');
+    Route::view('/404','errors.404');
+    Route::view('/500','errors.500');
+    Route::view('/mining/data','mining.data');
+    Route::view('/mining/grafik','mining.grafik');
+    Route::view('/users','user.daftar_user');
 });
 
-Route::get('mining/data',function(){
-    return view('mining.data');
-});
-
-Route::get('mining/grafik',function(){
-    return view('mining.grafik');
-});
-
-Route::get('kasir/stok',function(){
-    return view('kasir.stok');
-});
-Route::get('xxx',function(){
-    return view('xxx');
-});
-
-Route::get('/users',function(){
-    return view('user.daftar_user');
-});
-Route::get('/cek',function(){
-    return view('user.update_user');
-});
-
-// Route::get('admin', function () {
-    // if (Auth::check()) {
-    //     return view('admin');
-    // }
-    // return view('admin');
-
-// });
 
 Auth::routes();
 
@@ -61,11 +30,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 // })->where('any', '^(?!api\/)[\/\w\.-]*');
 
 // Route::get('/{any}', 'API\FronController@index')->where('any', '.*');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

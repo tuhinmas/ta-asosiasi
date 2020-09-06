@@ -36,7 +36,22 @@
         </div>
       </div>
     </form> --}}
-
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link">User: {{ Auth::user()->name }}</a>
+      </li>
+      
+      <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+          {{ __('Logout') }}
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+      </li>
+    </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
