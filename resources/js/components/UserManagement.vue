@@ -31,6 +31,7 @@
                   <a href="" @click.prevent="editUser(user)">
                     <i class="fa fa-edit"></i>
                   </a>
+                  &nbsp; &nbsp; &nbsp;
                   <a href="" @click.prevent="deleteUser(user.id)">
                     <i class="fa fa-trash"></i>
                   </a>

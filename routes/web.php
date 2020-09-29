@@ -14,8 +14,14 @@ Route::middleware('auth')->group(function(){
     Route::view('/','layouts.main');
     Route::view('/404','errors.404');
     Route::view('/500','errors.500');
+
     Route::view('/mining/data','mining.data');
+    Route::view('/mining/data1','mining.data1');
     Route::view('/mining/grafik','mining.grafik');
+    
+    Route::view('/produk','kasir.produk');
+    Route::view('/stok','kasir.stok');
+
     Route::view('/users','user.daftar_user');
 });
 

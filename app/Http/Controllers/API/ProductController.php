@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\API\UpdateRequest;
-use App\Http\Requests\API\RegisterRequest;
+use App\Http\Resources\ProductResource;
+use App\Http\Requests\API\ProductRequest;
 
-class UserController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::orderBy('id', 'desc')->paginate(5);
-        return response()->json($data);
+        return new ProductResource(Product::where('product_name','LIKE',"%".$request->search."%")->orderBy('product_name')->paginate(20));
+
+        // $produk = Product::orderBy('product_name')->paginate(20);
+        // return response()->json($produk);
+        // return $data;
     }
 
     /**
@@ -38,19 +40,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RegisterRequest $request)
+    public function store(ProductRequest $request)
     {
-        // use /validate method provided by Illuminate\Http\Request object to validate post data
-        // if validation fails JSON response will be sent for AJAX requests
-        // $this->validate($request, [
-                
-        //     ]
-        // );
-
-        return User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => bcrypt($request['password']),
+        return Product::create([
+            'product_id' => $request->product_id,
+            'product_name' => $request->product_name,
+            'harga' => $request->harga,
+            'merk' => $request->merk,
         ]);
     }
 
@@ -85,18 +81,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         $this->validate($request, [
-                'name' => 'required|string|max:191',
-                'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
-                'password' => 'sometimes|min:6',
+            'product_id' => 'required|max:50|unique:products,product_id,'.$product->id,
+            'product_name' => 'required|max:50',
+            'harga' => 'required|numeric|max:5000000',
+            'merk' => 'required|string|max:100',
             ]
         );
 
-        $user->update($request->all());
+        $product->update($request->all());
 
-        return $user;
+        return $product;
     }
 
     /**
@@ -107,10 +104,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-        $user->delete();
+        $product->delete();
+        return $product;
 
-        return $user;
     }
-} 
+}

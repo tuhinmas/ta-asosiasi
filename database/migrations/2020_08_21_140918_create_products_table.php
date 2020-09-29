@@ -15,10 +15,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('product_id');
             $table->string('product_name');
-            $table->string('merk');
             $table->integer('harga');
-            $table->timestamps();
+            $table->string('merk')->default('unilever');
         });
     }
 

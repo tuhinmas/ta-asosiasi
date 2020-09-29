@@ -69,22 +69,18 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/users') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar User</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/register" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add User</p>
-                </a>
-              </li>
+              @if (Auth::check() && (Auth::user()->role_id == 2))
+                <li class="nav-item">
+                  <a href="{{ url('/users') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar User</p>
+                  </a>
+                </li> 
+              @endif
               <li class="nav-item">
                 <a href="/login" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Login</p>
+                  <p>profil</p>
                 </a>
               </li>
             </ul>
@@ -107,14 +103,14 @@
               </li>
 
               <li class="nav-item">
-                <a href="/user" class="nav-link">
+                <a href="/produk" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Produk</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="/user" class="nav-link">
+                <a href="/stok" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stok</p>
                 </a>

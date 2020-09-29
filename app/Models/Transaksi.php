@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     protected $table = "transaksi";
+    protected $guarded = [];
     protected static function boot(){
         static::creating(function($model){
             if(! $model->getKey()){

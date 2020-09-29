@@ -9,7 +9,7 @@
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/cek') }}" class="nav-link">Transaksi</a>
+        <a href="{{ url('/mining/data1') }}" class="nav-link">Transaksi</a>
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
@@ -37,9 +37,11 @@
       </div>
     </form> --}}
     <ul class="navbar-nav ml-auto">
+      @if (Auth::check())
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link">User: {{ Auth::user()->name }}</a>
-      </li>
+      </li>  
+      @endif
       
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link" href="{{ route('logout') }}"

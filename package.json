@@ -28,10 +28,13 @@
         "@fortawesome/fontawesome-free": "^5.14.0",
         "bootstrap-vue": "^2.16.0",
         "es6-promise": "^4.2.8",
+        "jw-paginate": "^1.0.4",
+        "jw-vue-pagination": "^1.0.3",
         "laravel-vue-pagination": "^2.3.1",
         "sweetalert2": "^9.17.2",
         "vform": "^1.0.1",
         "vue-router": "^3.4.3",
+        "vuejs-paginate": "^2.1.0",
         "vuex": "^3.5.1"
     }
 }

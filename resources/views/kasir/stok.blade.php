@@ -1,10 +1,20 @@
 @extends('layouts.main')
 
+@push('css')
+
+@endpush
 @section('konten')
-        <div class="col-md-8">
-            <example-component />
+<div class="content-header"></div>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <pagination-component/>
+                </div>
+            </div>
         </div>
-        <div>
-            <example-component/>
-        </div>
+    </div>
 @endsection
+@push('scripts')
+    <script src="https://unpkg.com/vuejs-paginate@latest"></script>
+@endpush

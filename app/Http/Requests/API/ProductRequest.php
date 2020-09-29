@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
-            'password' => 'required',
+            'product_id' => 'required|unique:products,product_id|max:50',
+            'product_name' => 'required|max:50',
+            'harga' => 'required|numeric|max:5000000',
+            'merk' => 'required|string|max:100',
         ];
     }
 }
