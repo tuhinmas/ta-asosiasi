@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'product_name' => 'required|max:50',
             'harga' => 'required|numeric|max:5000000',
             'merk' => 'required|string|max:100',
+            'jml' => 'required|numeric|max:100'
         ];
     }
 }

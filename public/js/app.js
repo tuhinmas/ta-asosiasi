@@ -2398,6 +2398,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var customLabels = {
   first: "<<",
   last: ">>",
@@ -2420,26 +2433,20 @@ var customLabels = {
         product_id: "",
         product_name: "",
         harga: "",
-        merk: ""
+        merk: "",
+        stok: {
+          stok: ''
+        },
+        jml: ""
       }),
       isFormCreateUserMode: true
     };
   },
-  computed: {// filteredResources (){
-    //   if(this.searchQuery){
-    //   return this.resources.filter((item)=>{
-    //     return item.title.startsWith(this.searchQuery);
-    //   })
-    //   }else{
-    //     return this.resources;
-    //   }
-    // }
-  },
   methods: {
-    onChangePage: function onChangePage(pageOfItems) {
-      // update page of items
-      this.pageOfItems = pageOfItems;
-    },
+    // onChangePage(pageOfItems) {
+    //   // update page of items
+    //   this.pageOfItems = pageOfItems;
+    // },
     // /getProducts() function. Function we use to get Product list by calling api/Products method GET.
     getProducts: function getProducts() {
       var _this = this;
@@ -2486,8 +2493,14 @@ var customLabels = {
         });
 
         _this2.getProducts();
-      })["catch"](function () {
-        console.log("transaction fail");
+      })["catch"](function (error) {
+        console.log("transaction fail" + error);
+        console.log(_this2.form.product_name);
+        console.log(_this2.form.harga);
+        console.log(_this2.form.merk);
+        console.log(_this2.form.stok);
+        console.log(_this2.form.stok.stok);
+        console.log(_this2.form);
       });
     },
     // /editProduct() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
@@ -2499,7 +2512,11 @@ var customLabels = {
 
       $("#exampleModal").modal("show"); // show modal
 
+      this.form.jml = Product.stok.stok;
+      console.log("jml = " + this.form.jml);
+      Product.jml = Product.stok.stok;
       this.form.fill(Product);
+      console.log(Product);
     },
     // /updateProduct() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
     updateProduct: function updateProduct() {
@@ -2762,6 +2779,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var customLabels = {
   first: "<<",
   last: ">>",
@@ -2784,26 +2814,20 @@ var customLabels = {
         product_id: "",
         product_name: "",
         harga: "",
-        merk: ""
+        merk: "",
+        stok: {
+          stok: ''
+        },
+        jml: ""
       }),
       isFormCreateUserMode: true
     };
   },
-  computed: {// filteredResources (){
-    //   if(this.searchQuery){
-    //   return this.resources.filter((item)=>{
-    //     return item.title.startsWith(this.searchQuery);
-    //   })
-    //   }else{
-    //     return this.resources;
-    //   }
-    // }
-  },
   methods: {
-    onChangePage: function onChangePage(pageOfItems) {
-      // update page of items
-      this.pageOfItems = pageOfItems;
-    },
+    // onChangePage(pageOfItems) {
+    //   // update page of items
+    //   this.pageOfItems = pageOfItems;
+    // },
     // /getProducts() function. Function we use to get Product list by calling api/Products method GET.
     getProducts: function getProducts() {
       var _this = this;
@@ -2850,8 +2874,14 @@ var customLabels = {
         });
 
         _this2.getProducts();
-      })["catch"](function () {
-        console.log("transaction fail");
+      })["catch"](function (error) {
+        console.log("transaction fail" + error);
+        console.log(_this2.form.product_name);
+        console.log(_this2.form.harga);
+        console.log(_this2.form.merk);
+        console.log(_this2.form.stok);
+        console.log(_this2.form.stok.stok);
+        console.log(_this2.form);
       });
     },
     // /editProduct() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
@@ -2863,7 +2893,11 @@ var customLabels = {
 
       $("#exampleModal").modal("show"); // show modal
 
+      this.form.jml = Product.stok.stok;
+      console.log("jml = " + this.form.jml);
+      Product.jml = Product.stok.stok;
       this.form.fill(Product);
+      console.log(Product);
     },
     // /updateProduct() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
     updateProduct: function updateProduct() {
@@ -44664,6 +44698,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(product.stok.stok))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
                     _c(
                       "a",
                       {
@@ -44951,6 +44989,44 @@ var render = function() {
                         })
                       ],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.jml,
+                              expression: "form.jml"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("jml") },
+                          attrs: {
+                            type: "number",
+                            name: "jml",
+                            placeholder: "Stok"
+                          },
+                          domProps: { value: _vm.form.jml },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "jml", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "jml" }
+                        })
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -45032,7 +45108,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Harga")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Merk")])
+        _c("th", [_vm._v("Merk")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stok")])
       ])
     ])
   },
@@ -45162,6 +45240,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(product.stok.stok))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
                     _c(
                       "a",
                       {
@@ -45449,6 +45531,44 @@ var render = function() {
                         })
                       ],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.jml,
+                              expression: "form.jml"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("jml") },
+                          attrs: {
+                            type: "number",
+                            name: "jml",
+                            placeholder: "Stok"
+                          },
+                          domProps: { value: _vm.form.jml },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "jml", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "jml" }
+                        })
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -45530,7 +45650,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Harga")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Merk")])
+        _c("th", [_vm._v("Merk")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stok")])
       ])
     ])
   },

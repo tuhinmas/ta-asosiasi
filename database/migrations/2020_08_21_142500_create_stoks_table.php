@@ -15,7 +15,7 @@ class CreateStoksTable extends Migration
     {
         Schema::create('stok', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('product_id')->unique();
+            $table->uuid('product_id');
             $table->integer('stok');
             $table->foreign('product_id')
                   ->references('id')

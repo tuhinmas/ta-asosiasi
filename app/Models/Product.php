@@ -31,4 +31,8 @@ class Product extends Model
     public function transaksi(){
         return $this->belongsTo('App\Models\Transaksi');
     }
+
+    public function stok(){
+        return $this->hasOne("App\Models\Stok","product_id");
+    }
 }

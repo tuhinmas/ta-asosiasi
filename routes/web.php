@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function(){
     Route::view('/users','user.daftar_user');
 });
 
-
+Route::view('/xxx','orders.index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

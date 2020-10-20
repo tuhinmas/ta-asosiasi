@@ -52,6 +52,7 @@
                 <th>Nama</th>
                 <th>Harga</th>
                 <th>Merk</th>
+                <th>Stok</th>
               </tr>
             </thead>
             <tbody>
@@ -61,6 +62,7 @@
                 <td class="align-middle">{{ product.product_name }}</td>
                 <td class="align-middle">{{ product.harga }}</td>
                 <td class="align-middle">{{ product.merk }}</td>
+                <td class="align-middle">{{ product.stok.stok }}</td>
                 <td class="align-middle">
                   <a href @click.prevent="editProduct(product)">
                     <i class="fa fa-edit"></i>
@@ -162,6 +164,17 @@
                 />
                 <has-error :form="form" field="merk"></has-error>
               </div>
+              <div class="form-group">
+                <input
+                  v-model="form.jml"
+                  type="number"
+                  name="jml"
+                  placeholder="Stok"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('jml') }"
+                />
+                <has-error :form="form" field="jml"></has-error>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -203,27 +216,20 @@ export default {
         product_id: "",
         product_name: "",
         harga: "",
-        merk: ""
+        merk: "",
+        stok:{
+          stok:''
+        },
+        jml:""
       }),
       isFormCreateUserMode: true
     };
   },
-  computed: {
-    // filteredResources (){
-    //   if(this.searchQuery){
-    //   return this.resources.filter((item)=>{
-    //     return item.title.startsWith(this.searchQuery);
-    //   })
-    //   }else{
-    //     return this.resources;
-    //   }
-    // }
-  },
   methods: {
-    onChangePage(pageOfItems) {
-      // update page of items
-      this.pageOfItems = pageOfItems;
-    },
+    // onChangePage(pageOfItems) {
+    //   // update page of items
+    //   this.pageOfItems = pageOfItems;
+    // },
     // /getProducts() function. Function we use to get Product list by calling api/Products method GET.
     getProducts(page = 1, search = "") {
       if (typeof page === "undefined") {
@@ -254,7 +260,7 @@ export default {
     createProduct() {
       // request post
       this.form
-        .post("api/products", {})
+        .post("api/products",{})
         .then(() => {
           $("#exampleModal").modal("hide"); // hide modal
 
@@ -266,8 +272,14 @@ export default {
 
           this.getProducts();
         })
-        .catch(() => {
-          console.log("transaction fail");
+        .catch((error) => {
+          console.log("transaction fail"+error);
+          console.log(this.form.product_name);
+          console.log(this.form.harga);
+          console.log(this.form.merk);
+          console.log(this.form.stok);
+          console.log(this.form.stok.stok);
+          console.log(this.form);
         });
     },
     // /editProduct() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
@@ -275,12 +287,19 @@ export default {
       this.isFormCreateUserMode = false;
       this.form.reset(); // v form reset inputs
       this.form.clear(); // v form clear errors
+
       $("#exampleModal").modal("show"); // show modal
+      this.form.jml = Product.stok.stok;
+      console.log("jml = "+this.form.jml)
+      Product.jml=Product.stok.stok;
       this.form.fill(Product);
+      console.log(Product);
+
     },
     // /updateProduct() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
     updateProduct() {
       // request put
+      
       this.form
         .put("api/products/" + this.form.id, {})
         .then(() => {
@@ -344,6 +363,7 @@ export default {
   created() {
     // Call /getProducts() function initially.
     this.getProducts(this.page, this.search);
+    
   },
   mounted() {
     console.log("Component mounted."), this.getProducts(this.page, this.search);
