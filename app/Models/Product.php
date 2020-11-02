@@ -35,4 +35,8 @@ class Product extends Model
     public function stok(){
         return $this->hasOne("App\Models\Stok","product_id");
     }
+
+    public function diskon(){
+        return $this->hasOne("App\Models\Diskon");
+    }
 }

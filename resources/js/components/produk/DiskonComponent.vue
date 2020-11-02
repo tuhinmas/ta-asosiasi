@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">products</h3>
+          <h3 class="card-title">Discount</h3>
           <div class="card-tools">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -29,7 +29,7 @@
                 data-target="#exampleModal"
                 @click.prevent="showModal"
               >
-                <i class="fas fa-Product-plus"></i>Add new Product
+                <i class="fas fa-Product-plus"></i>Add new Discount
               </button>
               <!-- <div class="search-wrapper panel-heading col-sm-12"> -->
               <!-- <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" /> -->
@@ -37,7 +37,7 @@
                   type="text"
                   v-model.trim="search"
                   placeholder="Search people..."
-                  @keyup="getProducts"
+                  @keyup="getDiskon"
               />-->
               <!-- </div>   -->
             </div>
@@ -50,30 +50,21 @@
               <tr>
                 <th>ID</th>
                 <th>Nama</th>
-                <th>Harga</th>
-                <th>Merk</th>
-                <th>Stok</th>
-                <th>PPN</th>
+                <th>Diskon</th>
               </tr>
             </thead>
             <tbody>
               <!-- Loop through each Product record and display Product details -->
-              <tr v-for="product in products.data" v-bind:key="product.id">
-                <td class="align-middle">{{ product.product_id }}</td>
-                <td class="align-middle">{{ product.product_name }}</td>
-                <td class="align-middle">{{ product.harga }}</td>
-                <td class="align-middle">{{ product.merk }}</td>
-                <td class="align-middle">{{ product.stok.stok }}</td>
-                <td class="align-middle">{{ product.ppn }}</td>
+              <tr v-for="diskon in diskon.data" v-bind:key="diskon.id">
+                <td class="align-middle">{{ diskon.p_id }}</td>
+                <td class="align-middle">{{ diskon.product_name }}</td>
+                <td class="align-middle">{{ diskon.diskon }}%</td>
                 <td class="align-middle">
-                  <a href @click.prevent="editProduct(product)">
+                  <a href @click.prevent="editDiskon(diskon)">
                     <i class="fa fa-edit"></i>
                   </a>
                   &nbsp; &nbsp; &nbsp;
-                  <a
-                    href
-                    @click.prevent="deleteProduct(product.id)"
-                  >
+                  <a href @click.prevent="deleteDiskon(diskon.id)">
                     <i class="fa fa-trash"></i>
                   </a>
                 </td>
@@ -81,11 +72,7 @@
             </tbody>
           </table>
           <nav aria-label="Page navigation example" class="pagination-container">
-            <pagination
-              :data="products"
-              :limit="2"
-              @pagination-change-page="getProducts"
-            ></pagination>
+            <pagination :data="diskon" :limit="2" @pagination-change-page="getDiskon"></pagination>
             <!-- <jw-pagination :items="products" @changePage="onChangePage" :labels="customLabels"></jw-pagination> -->
           </nav>
         </div>
@@ -109,28 +96,39 @@
               v-show="isFormCreateUserMode"
               class="modal-title"
               id="exampleModalLabel"
-            >Add new Product</h5>
+            >Add new Discount</h5>
             <h5
               v-show="!isFormCreateUserMode"
               class="modal-title"
               id="exampleModalLabel"
-            >Update Product</h5>
+            >Update Discount</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <!-- Form for adding/updating Product details. When submitted call /createProduct() function if /isFormCreateUserMode value is true. Otherwise call /updateProduct() function. -->
-          <form @submit.prevent="isFormCreateUserMode ? createProduct() : updateProduct()">
+          <!-- Form for adding/updating Product details. When submitted call /createDiskon() function if /isFormCreateUserMode value is true. Otherwise call /updateDiskon() function. -->
+          <form @submit.prevent="isFormCreateUserMode ? createDiskon() : updateDiskon()">
             <div class="modal-body">
               <div class="form-group">
                 <input
-                  v-model="form.product_id"
+                  v-model="form.p_id"
                   type="text"
-                  name="product_id"
-                  placeholder="ID"
+                  name="p_id"
+                  placeholder="Product ID"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('product_id') }"
+                  @keyup="searchProduct()"
+                  :class="{ 'is-invalid': form.errors.has('p_id') }"
                 />
+                <div class="dropdown-search">
+                  <ul>
+                    <li v-for="data in productSearch" :key="data.id" @click="addProduct(data)">
+                      <span>
+                        <b>{{ data.product_id.toUpperCase() }}</b>
+                        - {{ data.product_name }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
                 <has-error :form="form" field="product_id"></has-error>
               </div>
               <div class="form-group">
@@ -138,7 +136,7 @@
                   v-model="form.product_name"
                   type="text"
                   name="product_name"
-                  placeholder="Nama Produk"
+                  placeholder="Nama Product"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('product_name') }"
                 />
@@ -146,47 +144,14 @@
               </div>
               <div class="form-group">
                 <input
-                  v-model="form.harga"
+                  v-model="form.diskon"
                   type="number"
-                  name="harga"
-                  placeholder="Harga"
+                  name="diskon"
+                  placeholder="Diskon (dalam %)"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('harga') }"
+                  :class="{ 'is-invalid': form.errors.has('diskon') }"
                 />
-                <has-error :form="form" field="harga"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.merk"
-                  type="text"
-                  name="merk"
-                  placeholder="Merk"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('merk') }"
-                />
-                <has-error :form="form" field="merk"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.jml"
-                  type="number"
-                  name="jml"
-                  placeholder="Stok"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('jml') }"
-                />
-                <has-error :form="form" field="jml"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.ppn"
-                  type="number"
-                  name="ppn"
-                  placeholder="PPN"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('ppn') }"
-                />
-                <has-error :form="form" field="ppn"></has-error>
+                <has-error :form="form" field="diskon"></has-error>
               </div>
             </div>
             <div class="modal-footer">
@@ -207,61 +172,75 @@
 
 <!-- We put our scripts inside script tag -->
 <script>
-const customLabels = {
-  first: "<<",
-  last: ">>",
-  previous: "<",
-  next: ">"
-};
 // Declare /Product-management component
 export default {
-  name: "produk-component",
+  name: "diskon-component",
   // Declare Products (as object), form (as /vform instance) and /isFormCreateUserMode (as boolean defaulted to 'true') inside /data() { return {} }.
   data() {
     return {
-      products: {},
-      customLabels,
+      productSearch: [],
+      diskon: {},
       pageOfItems: [],
       search: "",
       page: 1,
       form: new Form({
-        id: "",
+        id:'',
         product_id: "",
-        product_name: "",
-        harga: "",
-        merk: "",
-        ppn:'',
-        stok:{
-          stok:''
-        },
-        jml:""
+        p_id:'',
+        diskon: "",
+        product_name: ""
       }),
       isFormCreateUserMode: true
     };
   },
   methods: {
-    // onChangePage(pageOfItems) {
-    //   // update page of items
-    //   this.pageOfItems = pageOfItems;
-    // },
-    // /getProducts() function. Function we use to get Product list by calling api/Products method GET.
-    getProducts(page = 1, search = "") {
+    searchProduct() {
+      let searchProduct = this.form.p_id;
+      if (searchProduct == "") {
+        this.productSearch = [];
+      } else {
+        axios
+          .get("api/searchProduct", {
+            params: {
+              search: searchProduct
+            }
+          })
+          .then(response => {
+            this.productSearch = response.data;
+            console.log(response.data);
+          });
+      }
+    },
+    addProduct(data) {
+      this.form.product_id = data.id;
+      this.form.p_id = data.product_id;
+      this.form.product_name = data.product_name;
+      console.log(this.form);
+      this.productSearch = [];
+    },
+
+    onChangePage(pageOfItems) {
+      // update page of items
+      this.pageOfItems = pageOfItems;
+    },
+    // /getDiskon() function. Function we use to get Product list by calling api/Products method GET.
+    getDiskon(page = 1, search = "") {
       if (typeof page === "undefined") {
         page = 1;
       }
       axios
-        .get("api/products", {
-              params: {
-              page: page,
-              search: this.search
+        .get("api/diskon", {
+          params: {
+            page: page,
+            search: this.search
           }
-        //   params: {
-        //     search: this.search,
-        //     page: this.page
-        //   }
+          //   params: {
+          //     search: this.search,
+          //     page: this.page
+          //   }
         })
         .then(response => {
-          this.products = response.data;
+          this.diskon = response.data;
         });
     },
     // /showModal() function. Function we use to 1. Set /isFormCreateUserMode to 'true', 2. Reset form data, 3. Show modal containing dynamic form for adding/updating Product details.
@@ -270,12 +249,13 @@ export default {
       this.form.reset(); // v form reset
       $("#exampleModal").modal("show"); // show modal
     },
-    // /createProduct() function. Function we use to store Product details by calling api/Products method POST (carrying form input data).
-    createProduct() {
+    // /createDiskon() function. Function we use to store Product details by calling api/Products method POST (carrying form input data).
+    createDiskon() {
       // request post
       this.form
-        .post("api/products",{})
+        .post("api/diskon", {})
         .then(() => {
+          console.log(this.form);
           $("#exampleModal").modal("hide"); // hide modal
 
           // sweet alert 2
@@ -284,55 +264,46 @@ export default {
             title: "Product created successfully"
           });
 
-          this.getProducts();
+          this.getDiskon();
         })
-        .catch((error) => {
-          console.log("transaction fail"+error);
+        .catch(error => {
+          console.log("transaction fail" + error);
           console.log(this.form.product_name);
-          console.log(this.form.harga);
-          console.log(this.form.merk);
-          console.log(this.form.stok);
-          console.log(this.form.stok.stok);
           console.log(this.form);
         });
     },
-    // /editProduct() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
-    editProduct(Product) {
+    // /editDiskon() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
+    editDiskon(Diskon) {
       this.isFormCreateUserMode = false;
       this.form.reset(); // v form reset inputs
       this.form.clear(); // v form clear errors
 
       $("#exampleModal").modal("show"); // show modal
-      this.form.jml = Product.stok.stok;
-      console.log("jml = "+this.form.jml)
-      Product.jml=Product.stok.stok;
-      this.form.fill(Product);
-      console.log(Product);
-
+      this.form.fill(Diskon);
+      console.log(Diskon);
     },
-    // /updateProduct() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
-    updateProduct() {
-      // request put
-      
+    // /updateDiskon() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
+    updateDiskon() {
+      // request pu
       this.form
-        .put("api/products/" + this.form.id, {})
+        .put("api/diskon/" + this.form.id, {})
         .then(() => {
           $("#exampleModal").modal("hide"); // hide modal
 
           // sweet alert 2
           swal.fire({
             icon: "success",
-            title: "Product updated successfully"
+            title: "Diskon updated successfully"
           });
 
-          this.getProducts();
+          this.getDiskon();
         })
         .catch(() => {
           console.log("transaction fail");
         });
     },
-    // /deleteProduct() function. Function we use to delete Product record by calling api/Products/{id} method DELETE.
-    deleteProduct(id) {
+    // /deleteDiskon() function. Function we use to delete Product record by calling api/Products/{id} method DELETE.
+    deleteDiskon(id) {
       // console.log(id)
       // sweet alert confirmation
       swal
@@ -350,12 +321,12 @@ export default {
           if (result.value) {
             // request delete
             this.form
-              .delete("api/products/" + id, {})
+              .delete("api/diskon/" + id, {})
               .then(() => {
                 // sweet alert success
                 swal.fire("Deleted!", "Your file has been deleted.", "success");
 
-                this.getProducts(); // reload table Products
+                this.getDiskon(); // reload table Products
               })
               .catch(() => {
                 // sweet alert fail
@@ -370,17 +341,16 @@ export default {
         });
     },
     searchData() {
-      this.getProducts(this.page, this.search);
-    //   window.history.replaceState(null, null, "?page=1");
+      this.getDiskon(this.page, this.search);
+      //   window.history.replaceState(null, null, "?page=1");
     }
   },
   created() {
-    // Call /getProducts() function initially.
-    this.getProducts(this.page, this.search);
-    
+    // Call /getDiskon() function initially.
+    this.getDiskon(this.page, this.search);
   },
   mounted() {
-    console.log("Component mounted."), this.getProducts(this.page, this.search);
+    console.log("Component mounted."), this.getDiskon(this.page, this.search);
     //   this.displayData(this.page, this.search);
   }
 };

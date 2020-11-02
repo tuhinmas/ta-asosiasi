@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">products</h3>
+          <h3 class="card-title">Customer</h3>
           <div class="card-tools">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -21,7 +21,7 @@
                 @keyup="searchData"
               />
 
-              <!-- Button "add new Product". When clicked, it will call /showModal function (function to display modal pop up containing "add new Product" form). -->
+              <!-- Button "add new Customer". When clicked, it will call /showModal function (function to display modal pop up containing "add new Customer" form). -->
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -29,50 +29,37 @@
                 data-target="#exampleModal"
                 @click.prevent="showModal"
               >
-                <i class="fas fa-Product-plus"></i>Add new Product
+                <i class="fas fa-Customer-plus"></i>Add new Customer
               </button>
-              <!-- <div class="search-wrapper panel-heading col-sm-12"> -->
-              <!-- <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" /> -->
-              <!-- <input
-                  type="text"
-                  v-model.trim="search"
-                  placeholder="Search people..."
-                  @keyup="getProducts"
-              />-->
-              <!-- </div>   -->
             </div>
           </div>
         </div>
         <div class="card-body table-responsive p-0">
-          <!-- Data-table with pagination for Product list. -->
+          <!-- Data-table with pagination for Customer list. -->
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Nama</th>
-                <th>Harga</th>
-                <th>Merk</th>
-                <th>Stok</th>
-                <th>PPN</th>
+                <th>Email</th>
+                <th>HP</th>
+                <th>Alamat</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Loop through each Product record and display Product details -->
-              <tr v-for="product in products.data" v-bind:key="product.id">
-                <td class="align-middle">{{ product.product_id }}</td>
-                <td class="align-middle">{{ product.product_name }}</td>
-                <td class="align-middle">{{ product.harga }}</td>
-                <td class="align-middle">{{ product.merk }}</td>
-                <td class="align-middle">{{ product.stok.stok }}</td>
-                <td class="align-middle">{{ product.ppn }}</td>
+              <!-- Loop through each Customer record and display Customer details -->
+              <tr v-for="customer in customers.data" v-bind:key="customer.id">
+                <td class="align-middle">{{ customer.name }}</td>
+                <td class="align-middle">{{ customer.email }}</td>
+                <td class="align-middle">{{ customer.phone }}</td>
+                <td class="align-middle">{{ customer.address }}</td>
                 <td class="align-middle">
-                  <a href @click.prevent="editProduct(product)">
+                  <a href @click.prevent="editCustomer(customer)">
                     <i class="fa fa-edit"></i>
                   </a>
                   &nbsp; &nbsp; &nbsp;
                   <a
                     href
-                    @click.prevent="deleteProduct(product.id)"
+                    @click.prevent="deleteCustomer(customer.id)"
                   >
                     <i class="fa fa-trash"></i>
                   </a>
@@ -82,17 +69,17 @@
           </table>
           <nav aria-label="Page navigation example" class="pagination-container">
             <pagination
-              :data="products"
+              :data="customers"
               :limit="2"
-              @pagination-change-page="getProducts"
+              @pagination-change-page="getCustomers"
             ></pagination>
-            <!-- <jw-pagination :items="products" @changePage="onChangePage" :labels="customLabels"></jw-pagination> -->
+            <!-- <jw-pagination :items="customers" @changePage="onChangePage" :labels="customLabels"></jw-pagination> -->
           </nav>
         </div>
       </div>
     </div>
 
-    <!-- Modal containing dynamic form for adding/updating Product details. -->
+    <!-- Modal containing dynamic form for adding/updating Customer details. -->
     <div
       class="modal fade"
       id="exampleModal"
@@ -109,84 +96,62 @@
               v-show="isFormCreateUserMode"
               class="modal-title"
               id="exampleModalLabel"
-            >Add new Product</h5>
+            >Add new Customer</h5>
             <h5
               v-show="!isFormCreateUserMode"
               class="modal-title"
               id="exampleModalLabel"
-            >Update Product</h5>
+            >Update Customer</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <!-- Form for adding/updating Product details. When submitted call /createProduct() function if /isFormCreateUserMode value is true. Otherwise call /updateProduct() function. -->
-          <form @submit.prevent="isFormCreateUserMode ? createProduct() : updateProduct()">
+          <!-- Form for adding/updating Customer details. When submitted call /createCustomer() function if /isFormCreateUserMode value is true. Otherwise call /updateCustomer() function. -->
+          <form @submit.prevent="isFormCreateUserMode ? createCustomer() : updateCustomer()">
             <div class="modal-body">
               <div class="form-group">
                 <input
-                  v-model="form.product_id"
+                  v-model="form.name"
                   type="text"
-                  name="product_id"
-                  placeholder="ID"
+                  name="name"
+                  placeholder="Nama"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('product_id') }"
+                  :class="{ 'is-invalid': form.errors.has('name') }"
                 />
-                <has-error :form="form" field="product_id"></has-error>
+                <has-error :form="form" field="name"></has-error>
               </div>
               <div class="form-group">
                 <input
-                  v-model="form.product_name"
+                  v-model="form.email"
                   type="text"
-                  name="product_name"
-                  placeholder="Nama Produk"
+                  name="email"
+                  placeholder="Email"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('product_name') }"
+                  :class="{ 'is-invalid': form.errors.has('email') }"
                 />
-                <has-error :form="form" field="product_name"></has-error>
+                <has-error :form="form" field="email"></has-error>
               </div>
               <div class="form-group">
                 <input
-                  v-model="form.harga"
+                  v-model="form.phone"
                   type="number"
-                  name="harga"
-                  placeholder="Harga"
+                  name="phone"
+                  placeholder="HP"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('harga') }"
+                  :class="{ 'is-invalid': form.errors.has('phone') }"
                 />
-                <has-error :form="form" field="harga"></has-error>
+                <has-error :form="form" field="phone"></has-error>
               </div>
               <div class="form-group">
                 <input
-                  v-model="form.merk"
+                  v-model="form.address"
                   type="text"
-                  name="merk"
-                  placeholder="Merk"
+                  name="address"
+                  placeholder="Alamat"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('merk') }"
+                  :class="{ 'is-invalid': form.errors.has('address') }"
                 />
-                <has-error :form="form" field="merk"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.jml"
-                  type="number"
-                  name="jml"
-                  placeholder="Stok"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('jml') }"
-                />
-                <has-error :form="form" field="jml"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.ppn"
-                  type="number"
-                  name="ppn"
-                  placeholder="PPN"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('ppn') }"
-                />
-                <has-error :form="form" field="ppn"></has-error>
+                <has-error :form="form" field="address"></has-error>
               </div>
             </div>
             <div class="modal-footer">
@@ -207,34 +172,22 @@
 
 <!-- We put our scripts inside script tag -->
 <script>
-const customLabels = {
-  first: "<<",
-  last: ">>",
-  previous: "<",
-  next: ">"
-};
-// Declare /Product-management component
+// Declare /Customer-management component
 export default {
-  name: "produk-component",
-  // Declare Products (as object), form (as /vform instance) and /isFormCreateUserMode (as boolean defaulted to 'true') inside /data() { return {} }.
+  name: "customer-component",
+  // Declare Customers (as object), form (as /vform instance) and /isFormCreateUserMode (as boolean defaulted to 'true') inside /data() { return {} }.
   data() {
     return {
-      products: {},
-      customLabels,
+      customers: {},
       pageOfItems: [],
       search: "",
       page: 1,
       form: new Form({
         id: "",
-        product_id: "",
-        product_name: "",
-        harga: "",
-        merk: "",
-        ppn:'',
-        stok:{
-          stok:''
-        },
-        jml:""
+        name: "",
+        email: "",
+        phone: "",
+        address:""
       }),
       isFormCreateUserMode: true
     };
@@ -244,13 +197,13 @@ export default {
     //   // update page of items
     //   this.pageOfItems = pageOfItems;
     // },
-    // /getProducts() function. Function we use to get Product list by calling api/Products method GET.
-    getProducts(page = 1, search = "") {
+    // /getCustomers() function. Function we use to get Customer list by calling api/Customers method GET.
+    getCustomers(page = 1, search = "") {
       if (typeof page === "undefined") {
         page = 1;
       }
       axios
-        .get("api/products", {
+        .get("api/customers", {
               params: {
               page: page,
               search: this.search
@@ -261,78 +214,70 @@ export default {
         //   }
         })
         .then(response => {
-          this.products = response.data;
+          this.customers = response.data;
         });
     },
-    // /showModal() function. Function we use to 1. Set /isFormCreateUserMode to 'true', 2. Reset form data, 3. Show modal containing dynamic form for adding/updating Product details.
+    // /showModal() function. Function we use to 1. Set /isFormCreateUserMode to 'true', 2. Reset form data, 3. Show modal containing dynamic form for adding/updating Customer details.
     showModal() {
       this.isFormCreateUserMode = true;
       this.form.reset(); // v form reset
       $("#exampleModal").modal("show"); // show modal
     },
-    // /createProduct() function. Function we use to store Product details by calling api/Products method POST (carrying form input data).
-    createProduct() {
+    // /createCustomer() function. Function we use to store Customer details by calling api/Customers method POST (carrying form input data).
+    createCustomer() {
       // request post
       this.form
-        .post("api/products",{})
+        .post("api/customers",{})
         .then(() => {
           $("#exampleModal").modal("hide"); // hide modal
 
           // sweet alert 2
           swal.fire({
             icon: "success",
-            title: "Product created successfully"
+            title: "Customer created successfully"
           });
 
-          this.getProducts();
+          this.getCustomers();
         })
         .catch((error) => {
           console.log("transaction fail"+error);
-          console.log(this.form.product_name);
-          console.log(this.form.harga);
-          console.log(this.form.merk);
-          console.log(this.form.stok);
-          console.log(this.form.stok.stok);
           console.log(this.form);
         });
     },
-    // /editProduct() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Product details, 4. Fill form with Product details.
-    editProduct(Product) {
+    // /editCustomer() function. Function we use to 1. Set /isFormCreateUserMode to 'false', 2. Reset and clear form data, 3. Show modal containing dynamic form for adding/updating Customer details, 4. Fill form with Customer details.
+    editCustomer(Customer) {
       this.isFormCreateUserMode = false;
       this.form.reset(); // v form reset inputs
       this.form.clear(); // v form clear errors
 
       $("#exampleModal").modal("show"); // show modal
-      this.form.jml = Product.stok.stok;
-      console.log("jml = "+this.form.jml)
-      Product.jml=Product.stok.stok;
-      this.form.fill(Product);
-      console.log(Product);
+      this.form.fill(Customer);
+      console.log(Customer);
 
     },
-    // /updateProduct() function. Function we use to update Product details by calling api/Products/{id} method PUT (carrying form input data).
-    updateProduct() {
+    // /updateCustomer() function. Function we use to update Customer details by calling api/Customers/{id} method PUT (carrying form input data).
+    updateCustomer() {
       // request put
       
       this.form
-        .put("api/products/" + this.form.id, {})
+        .put("api/customers/" + this.form.id, {})
         .then(() => {
           $("#exampleModal").modal("hide"); // hide modal
 
           // sweet alert 2
           swal.fire({
             icon: "success",
-            title: "Product updated successfully"
+            title: "Customer updated successfully"
           });
 
-          this.getProducts();
+          this.getCustomers();
         })
         .catch(() => {
           console.log("transaction fail");
         });
     },
-    // /deleteProduct() function. Function we use to delete Product record by calling api/Products/{id} method DELETE.
-    deleteProduct(id) {
+    // /deleteCustomer() function. Function we use to delete Customer record by calling api/Customers/{id} method DELETE.
+    deleteCustomer(id) {
       // console.log(id)
       // sweet alert confirmation
       swal
@@ -350,12 +295,12 @@ export default {
           if (result.value) {
             // request delete
             this.form
-              .delete("api/products/" + id, {})
+              .delete("api/customers/" + id, {})
               .then(() => {
                 // sweet alert success
                 swal.fire("Deleted!", "Your file has been deleted.", "success");
 
-                this.getProducts(); // reload table Products
+                this.getCustomers(); // reload table Customers
               })
               .catch(() => {
                 // sweet alert fail
@@ -370,17 +315,17 @@ export default {
         });
     },
     searchData() {
-      this.getProducts(this.page, this.search);
+      this.getCustomers(this.page, this.search);
     //   window.history.replaceState(null, null, "?page=1");
     }
   },
   created() {
-    // Call /getProducts() function initially.
-    this.getProducts(this.page, this.search);
+    // Call /getCustomers() function initially.
+    this.getCustomers(this.page, this.search);
     
   },
   mounted() {
-    console.log("Component mounted."), this.getProducts(this.page, this.search);
+    console.log("Component mounted."), this.getCustomers(this.page, this.search);
     //   this.displayData(this.page, this.search);
   }
 };

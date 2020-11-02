@@ -59,6 +59,7 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->harga = $request->harga;
         $product->merk = $request->merk;
+        $product->ppn = $request->ppn;
         $product->save();
 
         // $stok = Stok::create([
@@ -120,7 +121,8 @@ class ProductController extends Controller
             'product_name' => 'required|max:50',
             'harga' => 'required|numeric|max:5000000',
             'merk' => 'required|string|max:100',
-            'jml' => 'required|numeric|max:500'
+            'jml' => 'required|numeric|max:500',
+            'ppn' => 'required|numeric|max:99'
             ]
         );
 
@@ -128,6 +130,7 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->harga = $request->harga;
         $product->merk = $request->merk;
+        $product->ppn = $request->ppn;
         $product->save();
 
         $stok->stok = $request->jml;

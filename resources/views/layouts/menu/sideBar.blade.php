@@ -96,7 +96,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/user" class="nav-link">
+                <a href="/transaksi" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaksi</p>
                 </a>
@@ -110,9 +110,15 @@
               </li>
 
               <li class="nav-item">
-                <a href="/stok" class="nav-link">
+                <a href="/diskon" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Stok</p>
+                  <p>Diskon</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/customer" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer</p>
                 </a>
               </li>
 

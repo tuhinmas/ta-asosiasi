@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function(){
     
     Route::view('/produk','kasir.produk');
     Route::view('/stok','kasir.stok');
+    Route::view('/diskon','kasir.diskon');
+    Route::view('/customer','kasir.customer');
+    Route::view('/transaksi','kasir.transaksi');
 
     Route::view('/users','user.daftar_user');
 });

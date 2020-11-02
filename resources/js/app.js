@@ -45,6 +45,9 @@ Vue.component('user-management-component', require('./components/UserManagement.
 Vue.component('data-mining-component', require('./components/mining/DataComponent.vue').default);
 Vue.component('product-component', require('./components/produk/ProdukComponent.vue').default);
 Vue.component('pagination-component', require('./components/produk/PaginationComponent.vue').default);
+Vue.component('diskon-component', require('./components/produk/DiskonComponent.vue').default);
+Vue.component('customer-component', require('./components/customer/CustomerComponent.vue').default);
+Vue.component('transaction-component', require('./components/transaksi/TransactionComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

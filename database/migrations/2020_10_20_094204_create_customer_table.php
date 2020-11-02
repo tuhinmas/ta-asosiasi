@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTotalsTable extends Migration
+class CreateCustomerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateTotalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('total', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('invoice');
-            $table->float('total');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('address');
             $table->timestamps();
-            $table->foreign('invoice')
-                  ->references('invoice')
-                  ->on('transaksi');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateTotalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('total');
+        Schema::dropIfExists('customer');
     }
 }

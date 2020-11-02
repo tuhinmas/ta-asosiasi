@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class Diskon extends Model
 {
-    protected $table = "transaksi";
+    protected $table = "diskon";
     protected $guarded = [];
+    public $timestamps=false;
+    // protected $table = 'products';
+
     protected static function boot(){
         parent::boot();
         static::creating(function($model){
@@ -27,6 +30,6 @@ class Transaksi extends Model
     }
 
     public function products(){
-        return $this->hasMany('App\Models\Product','id','product_id');
+        return $this->hasOne("App\Models\Product","id","product_id");
     }
 }

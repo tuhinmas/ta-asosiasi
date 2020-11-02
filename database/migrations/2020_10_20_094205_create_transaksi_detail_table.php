@@ -15,8 +15,25 @@ class CreateTransaksiDetailTable extends Migration
     {
         Schema::create('transaksi_detail', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            
+            $table->uuid('user_id');
+            $table->uuid('customer_id');
+            $table->string('invoice');
+            $table->integer('jumlah_item');
+            $table->uuid('payment_method');
+            $table->integer('sub_total');
+            $table->integer('diskon');
+            $table->integer('total');
             $table->timestamps();
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users');
+            $table->foreign('customer_id')
+                  ->references('id')
+                  ->on('customers');
+            $table->foreign('payment_method')
+                  ->references('id')
+                  ->on('payment_methods');
+            
         });
     }
 

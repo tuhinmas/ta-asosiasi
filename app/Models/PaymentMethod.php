@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class PaymentMethod extends Model
 {
-    protected $table = "transaksi";
     protected $guarded = [];
+
     protected static function boot(){
         parent::boot();
         static::creating(function($model){
@@ -26,7 +26,7 @@ class Transaksi extends Model
         return 'string';
     }
 
-    public function products(){
-        return $this->hasMany('App\Models\Product','id','product_id');
+    public function transaksi_detail(){
+        return $this->belongsTo('App\Models\Transaksi_detail');
     }
 }

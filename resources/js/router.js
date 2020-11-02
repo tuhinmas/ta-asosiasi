@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 import UserManagement from "./components/UserManagement";
 import data from "./components/mining/DataComponent";
 import produk from "./components/produk/ProdukComponent";
+import customer from "./components/customer/CustomerComponent";
 
 const router = new VueRouter({ // Then we register route for User management module.
   routes: [
@@ -23,6 +24,11 @@ const router = new VueRouter({ // Then we register route for User management mod
       path:"/kasir/produk",
       name: "produk",
       component: produk
+    },
+    {
+      path:"/customer",
+      name: "customer",
+      component: customer
     },
   ],
 }); 
