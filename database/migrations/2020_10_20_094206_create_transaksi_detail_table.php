@@ -33,6 +33,10 @@ class CreateTransaksiDetailTable extends Migration
             $table->foreign('payment_method')
                   ->references('id')
                   ->on('payment_methods');
+            $table->foreign('invoice')
+                  ->references('invoice')
+                  ->on('transaksi')
+                  ->onDelete('cascade');
             
         });
     }

@@ -30,13 +30,17 @@ class Transaksi_detail extends Model
     }
 
     public function user(){
-        return $this->hasMany('App\Models\User');
+        return $this->hasOne('App\User','id','user_id');
     }
 
     public function customers(){
-        return $this->hasMany('App\Models\Customer');
+        return $this->hasOne('App\Models\Customer','id','customer_id');
     }
     public function payment_method(){
-        return $this->hasMany('App\Models\PaymentMethod');
+        return $this->hasOne('App\Models\PaymentMethod','id','payment_method');
+    }
+
+    public function transaksi(){
+        return $this->hasMany('App\Models\Transaksi','invoice','invoice');
     }
 }

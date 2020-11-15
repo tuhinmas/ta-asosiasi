@@ -7,19 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected static function boot(){
-        static::creating(function($model){
-            if(! $model->getKey()){
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
+    // protected static function boot(){
+    //     parent::boot();
+    //     static::creating(function($model){
+    //         if(! $model->getKey()){
+    //             $model->{$model->getKeyName()} = (string) Str::uuid();
+    //         }
+    //     });
+    // }
 
-    public function getIncrementing(){
-        return false;
-    }
+    // public function getIncrementing(){
+    //     return false;
+    // }
 
-    public function getKeyType(){
-        return 'string';
+    // public function getKeyType(){
+    //     return 'string';
+    // }
+
+    public function products(){
+        return $this->hasOne('App\Models\Product','id','product_id');
     }
 }

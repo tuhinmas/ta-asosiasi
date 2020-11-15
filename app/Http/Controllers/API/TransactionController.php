@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Diskon;
 use App\Models\Product;
 use App\Models\Transaksi;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Transaksi_detail;
 use App\Http\Controllers\Controller;
@@ -91,6 +92,8 @@ class TransactionController extends Controller
                         // ->sum(\DB::raw('products.harga - ( products.harga * (diskon.diskon / 100))'));
                         // ->get();
         // dd($sub);
+        $invoiceSplit = str_replace('/','-',$transaksi->invoice);
+
         $transaksi_detail = new Transaksi_detail;
         $transaksi_detail->user_id = Auth::id();
         $transaksi_detail->customer_id = $request->customer;
@@ -101,24 +104,51 @@ class TransactionController extends Controller
         $transaksi_detail->diskon = $disc;
         $transaksi_detail->total = $request->total;
         $transaksi_detail->save();
-        // return response()->json($transaksi_detail_invoice);
+
         return response()->json([
             'status' => true,
-            'message' => 'ok',
+            'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($request->total)
+                        ."</b><br>Jumlah Bayar: <b>Rp "
+                        .number_format($request->bayar)."</b><br>Kembalian: <b>Rp "
+                        .number_format($request->kembalian)
+                        ."</b><br>Invoice: <a href='".url("transaksi/invoice/".$invoiceSplit)
+                        ."'>Klik Disini</a>",
             'tr' => $transaksi_detail
         ]);
 
     }
 
+    public function riwayat(){
+        $riwayat = Transaksi_detail::with('customers','user')
+                                    ->orderBy('created_at','desc')
+                                    ->orderBy('created_at')
+                                    ->paginate(30);
+
+        return response()->json($riwayat);
+    }
+    public function invoice($invoice){
+        $invoice = Str::replaceArray('-','/', $invoice);
+        $detail = Transaksi::where('invoice',$invoice)->get();
+
+        return response()->json($detail);
+    }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($invoice)
     {
-        //
+        $invoice = str_replace('-','/',$invoice);
+        $transaksi = Transaksi::with('products','products.diskon')->where('invoice',$invoice)->get();
+        $detail_transaksi = Transaksi_detail::with('customers','user','payment_method')
+                                            ->where('invoice', $invoice)
+                                            ->get();
+        return response()->json([
+            'transaksi' => $transaksi,
+            'detail_transaksi' => $detail_transaksi
+        ]);
     }
 
     /**

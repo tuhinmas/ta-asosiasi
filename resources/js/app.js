@@ -5,8 +5,11 @@
  */
 
 require('./bootstrap');
+import moment from 'moment';
 
 window.Vue = require('vue');
+
+Vue.prototype.moment = moment
 // Import /Form, /HasError, /AlertError from /vform first.
 import { Form, HasError, AlertError } from 'vform'
 
@@ -23,7 +26,6 @@ Vue.component('pagination', require('laravel-vue-pagination')); // Register /pag
 
  // Then, set /window.swal as /swal so we can instantiate /swal later within our component.
  window.swal = swal; 
-
  import VuejsPaginate from 'vuejs-paginate'
 // Vue.component('paginate', Paginate)
 Vue.component('paginate', VuejsPaginate)
@@ -40,6 +42,7 @@ Vue.component('paginate', VuejsPaginate)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-management-component', require('./components/UserManagement.vue').default);
 Vue.component('data-mining-component', require('./components/mining/DataComponent.vue').default);
@@ -48,6 +51,10 @@ Vue.component('pagination-component', require('./components/produk/PaginationCom
 Vue.component('diskon-component', require('./components/produk/DiskonComponent.vue').default);
 Vue.component('customer-component', require('./components/customer/CustomerComponent.vue').default);
 Vue.component('transaction-component', require('./components/transaksi/TransactionComponent.vue').default);
+Vue.component('invoice-component', require('./components/transaksi/InvoiceDetailComponent.vue').default);
+Vue.component('riwayat-transaksi-component', require('./components/transaksi/RiwayatTransaksiComponent.vue').default);
+Vue.component('home-component', require('./components/HomeComponent.vue').default);
+Vue.component('parameter-component', require('./components/mining/ParameterComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,7 +62,7 @@ Vue.component('transaction-component', require('./components/transaksi/Transacti
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import router from './router'
-
+Vue.router =router;
 const app = new Vue({
     router,
     el: '#app',

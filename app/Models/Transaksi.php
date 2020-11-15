@@ -27,6 +27,10 @@ class Transaksi extends Model
     }
 
     public function products(){
-        return $this->hasMany('App\Models\Product','id','product_id');
+        return $this->hasOne('App\Models\Product','id','product_id');
+    }
+
+    public function transaksi_detail(){
+        return $this->belongsTo('App\Models\Transaksi_detail','invoice','invoice');
     }
 }

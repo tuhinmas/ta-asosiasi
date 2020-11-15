@@ -14,9 +14,8 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->bigIncrements('id');
             $table->uuid('product_id')->nullable();
-            $table->integer('order_of_item')->unique();
             $table->timestamps();
             $table->foreign('product_id')
                   ->references('id')

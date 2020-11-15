@@ -7,13 +7,20 @@ import UserManagement from "./components/UserManagement";
 import data from "./components/mining/DataComponent";
 import produk from "./components/produk/ProdukComponent";
 import customer from "./components/customer/CustomerComponent";
+import riwayat from "./components/transaksi/InvoiceDetailComponent";
 
 const router = new VueRouter({ // Then we register route for User management module.
+  mode : 'history',
   routes: [
     {
       path:"/usermanagement",
       name: "usermanagement",
       component: UserManagement
+    },
+    {
+      path:"/transaksi/invoice/:invoice_id",
+      name: "riwayat-component",
+      component: riwayat
     },
     {
       path:"/data/mining",

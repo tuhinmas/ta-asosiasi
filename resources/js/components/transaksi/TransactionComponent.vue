@@ -184,9 +184,9 @@ export default {
             error: false,
             successMsg: '',
 			customers: [],
-			customer: '00b288ae-dfaa-4576-a3a1-27404b3cdee7',
+			customer: '00000f03-5c73-43ef-98d5-e18bd113f899',
             payment_methods: [],
-            payment_method: 'e4ac0805-e14e-4ad1-83cd-1a196f126b04',
+            payment_method: '20ec96b5-5d9b-4811-ab55-1deedc6bb8c7',
             qty: [],
         }
     },
@@ -310,7 +310,7 @@ export default {
 			console.log("total= "+total);
 			console.log(cart);
 
-            axios.post(`/api/transaction`, {cart,customer,payment_method, total })
+            axios.post(`/api/transaction`, {cart,customer,payment_method, total,bayar,kembalian })
                 .then(res => {
                     console.log(res.data);
                     if(res.data.status == true) {

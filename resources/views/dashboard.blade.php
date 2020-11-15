@@ -4,7 +4,7 @@
 <div class="content-header"></div>
     <div id="app">
         <div class="container-fluid">
-            <parameter-component/>
+            <home-component/>
         </div>
     </div>
 @endsection

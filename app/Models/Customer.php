@@ -29,6 +29,6 @@ class Customer extends Model
     }
 
     public function transaksi_detail(){
-        return $this->belongsTo('App\Models\Transaksi_Detail');
+        return $this->hasOne('App\Models\Transaksi_Detail');
     }
 }

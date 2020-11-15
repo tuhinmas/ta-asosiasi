@@ -82,4 +82,8 @@ class User extends Authenticatable
     public function role(){
         $this->belongsTo('\App\Models\Role');
     }
+
+    public function transaksi_detail(){
+        return $this->hasOne('App\Models\Transaksi_detail','id');
+    }
 }

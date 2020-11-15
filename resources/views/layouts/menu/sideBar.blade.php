@@ -24,40 +24,40 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
+              @if (Auth::check() && (Auth::user()->role_id == 2))
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/parameter" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Parameter</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="{{ url('mining/data') }}" class="nav-link">
+                <a href="/train" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Train</p>
                 </a>
               </li>
               
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/results" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Result</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/grafik" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Grafik</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/order" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order</p>
                 </a>
               </li>
-
+              @endif
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -77,12 +77,6 @@
                   </a>
                 </li> 
               @endif
-              <li class="nav-item">
-                <a href="/login" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>profil</p>
-                </a>
-              </li>
             </ul>
           </li>
 
@@ -99,6 +93,12 @@
                 <a href="/transaksi" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/riwayat-transaksi" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Riwayat Transaksi</p>
                 </a>
               </li>
 
@@ -122,6 +122,14 @@
                 </a>
               </li>
 
+              @if (Auth::check() && (Auth::user()->role_id == 2))
+              <li class="nav-item">
+                <a href="{{ url('/pdf-transaction-report') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan</p>
+                </a>
+              </li> 
+              @endif
             </ul>
           </li>
 
