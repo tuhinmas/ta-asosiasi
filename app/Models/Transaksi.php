@@ -33,4 +33,8 @@ class Transaksi extends Model
     public function transaksi_detail(){
         return $this->belongsTo('App\Models\Transaksi_detail','invoice','invoice');
     }
+
+    public function hash_2(){
+        return $this->belongsToMany('App\Models\Transaksi','hash_2','product_id_1','product_id_2')->withPivot('invoice');
+    }
 }

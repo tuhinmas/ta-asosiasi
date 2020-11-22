@@ -5,7 +5,7 @@
         <div class="small-box bg-danger">
           <div class="inner">
             <h3>{{ transaksi.allProducts }}</h3>
-            <p>Produk</p>
+            <p>Item</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
@@ -75,6 +75,7 @@
       <!-- /.card-body -->
       <div class="card-footer">
         <button type="submit" class="btn btn-primary">Proses</button>
+        <div class="alert alert-success" v-if="successMsg !== ''" v-html="successMsg"></div>
       </div>
     </div>
   </div>
@@ -97,7 +98,8 @@ export default {
       parameters: {},
       transaksi: {},
       support: 2,
-      confidence: 2
+      confidence: 2,
+      successMsg:''
     };
   },
   methods: {
@@ -111,6 +113,9 @@ export default {
       axios.get("/api/resume-transaksi").then(response => {
         this.transaksi = response.data;
       });
+    },
+    prosesDataMining(){
+      axios.post("api/data-mining")
     }
   }
 };

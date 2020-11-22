@@ -34,3 +34,8 @@ Route::get('/xxx','API\ProductController@index');
 
 //Data Mining
 Route::get('/parameter','API\DataMining\ParameterController@parameter');
+Route::get('/order-of-item','API\DataMining\OrderController@index');
+Route::get('/total-item','API\DataMining\OrderController@total');
+Route::get('/data-train','API\DataMining\DataTrainController@index');
+Route::get('/count-data-train','API\DataMining\DataTrainController@countDataTrain');
+Route::get('/data-mining','API\DataMining\DataMiningController@proses');

@@ -17,11 +17,14 @@ Route::middleware('auth')->group(function(){
     Route::view('/404','errors.404');
     Route::view('/500','errors.500');
 
+    //Data Mining
     Route::view('/mining/data','mining.data');
     Route::view('/mining/data1','mining.data1');
     Route::view('/mining/grafik','mining.grafik');
     Route::view('/parameter','mining.param');
-    
+    Route::view('/order-of-item','mining.order');
+    Route::view('/data-train','mining.data');
+
     Route::view('/produk','kasir.produk');
     Route::view('/stok','kasir.stok');
     Route::view('/diskon','kasir.diskon');
@@ -39,6 +42,26 @@ Auth::routes();
 Route::get('/pdf-transaction-report','PDFReportController@transaksi');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Route to handle page reload in Vue except for api routes
 // Route::get('/{any?}', function (){

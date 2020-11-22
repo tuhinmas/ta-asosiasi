@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Stok;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,6 +68,9 @@ class ProductController extends Controller
         //     'stok' => $request->stok,
         // ]);
 
+        $order = new Order;
+        $order->product_id = $product->id;
+        $order->save();
         // dd($product->id);
         $stok = new Stok;
         // $stok->product_id = $request->id;

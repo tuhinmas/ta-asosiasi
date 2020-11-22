@@ -29,7 +29,7 @@ class Product extends Model
     }
 
     public function transaksi(){
-        return $this->belongsTo('App\Models\Transaksi');
+        return $this->hasMany('App\Models\Transaksi','product_id');
     }
 
     public function stok(){

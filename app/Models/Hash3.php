@@ -10,6 +10,7 @@ class Hash3 extends Model
     protected $table = "hash_3";
 
     protected static function boot(){
+        parent::boot();
         static::creating(function($model){
             if(! $model->getKey()){
                 $model->{$model->getKeyName()} = (string) Str::uuid();

@@ -33,7 +33,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="/train" class="nav-link">
+                <a href="/data-train" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Train</p>
                 </a>
@@ -52,7 +52,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/order" class="nav-link">
+                <a href="/order-of-item" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order</p>
                 </a>

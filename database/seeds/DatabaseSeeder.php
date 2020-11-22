@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransaksiDetailSeeder::class);
         $this->call(ParameterSeeder::class);
         // $this->call(OrderofItemSeeder::class);
+        $this->call(H_1Seeder::class);
+        $this->call(H_2Seeder::class);
     }
 }
