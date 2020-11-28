@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Hash1;
+use App\Models\Hash2;
+use App\Models\Order;
 use Illuminate\Database\Seeder;
 
 class H_2Seeder extends Seeder
@@ -13,28 +16,47 @@ class H_2Seeder extends Seeder
     {
         $n_item = Order::count('product_id');
         $order_of_item = Order::all();
-        $n = (2 * $n_item) + 1;
+        $n = 27827;
+//get frequent itemset
+        // $fi = DB::table('hash_2')
+        //             ->select('count(distinct product_id_1, product_id_2)')
+        //             ->get();
+        // $data = DB::table('hash_1 as p1')
+        //     ->join('hash_1 as p2', 'p1.link', '=', 'p2.link')
+        //     ->select('p1.*', 'p2.product_id as p2_id', 'p2.address as p2_address', 'p2.link as link_2')
+        //     ->whereRaw('p2.address > p1.Address')
+            // ->orderBy('p1.address')
+            // ->orderBy('p2.address')
+            // ->take(500)
+            // ->get();
+        
+    //update hash 2 id duplicate
+        // $data = DB::table('hash_2 as h2')
+        //         ->join('orders as or_1', 'h2.product_id_1', '=', 'or_1.product_id')
+        //         ->join('orders as or_2','h2.product_id_2','=','or_2.product_id')
+        //         ->select('h2.*', 'or_1.id as id_1', 'or_2.id as id_2')
+        //         // ->take(100)
+        //         ->get();
 
-        $data = Order::with('transaksi')
-        //    ->take(1000)
-            ->get();
-
-        // $hash1 = Hash1::orderBY('address')
-        //                 ->orderBy('created_at')
-        //                 ->get();
-        // $hash_1 = Hash1::where('product_id','03204807-94a1-4ffc-a3c3-cb4a1916d3f1')
-        //                 ->first();
-
+//inserting h2
+        $data = DB::table('hash_1 as p1')
+                    ->join('hash_1 as p2', 'p1.link', '=', 'p2.link')
+                    ->select('p1.*','p2.product_id as p2_id','p2.address as P2_address','p2.link as link_2')
+                    ->where('p2.address','>',DB::raw('p1.Address'))
+                    // ->orderBy('p1.address')
+                    // ->orderBy('p2.address')
+                    // ->count();
+                    // ->take(10)
+                    ->get();
         foreach ($data as $dat) {
-            foreach ($dat->transaksi as $trans) {
-                $hash_1 = new Hash1;
-                $hash_1->address = $dat->id % $n;
-                $hash_1->product_id = $dat->product_id;
-                $hash_1->link = $trans->invoice;
-                $hash_1->created_at = $trans->created_at;
-                $hash_1->updated_at = $trans->updated_at;
-                // $hash_1->save();
-            }
+            $hash_2 = new Hash2;
+            $hash_2->address = 1;
+            $hash_2->product_id_1 = $dat->product_id;
+            $hash_2->product_id_2 = $dat->p2_id;
+            $hash_2->link = $dat->link;
+            $hash_2->created_at = $dat->created_at;
+            $hash_2->updated_at = $dat->updated_at;
+            $hash_2->save();
         }
     }
 }

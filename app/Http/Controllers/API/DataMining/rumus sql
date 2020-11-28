@@ -1,0 +1,8 @@
+select p2.*, ord.id as id1, or_2.id as id_2, ((ord.id * 10) + or_2.id) mod 9091 as alm from hash_2 as p2 inner join orders as ord on p2.product_id_1 = ord.product_id inner join orders as or_2 on p2.product_id_2 = or_2.product_id order by p2.address desc,product_id_1,product_id_2 limit 10;
+
+//kandidat level 2 dari hash 1
+select * from hash_1 as p1 inner join hash_1 as p2 on p1.link=p2.link where p2.address > p1.address  order by p1.address,p2.address limit 50;
+
+//delete
+delete from hash_2 where id in (select id from (select id from hash_2 group by product_id_1, product_id_2 having count(*) < 10) tmp);
+

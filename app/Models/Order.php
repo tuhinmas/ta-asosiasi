@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Hash1;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $guarded = [];
     // protected static function boot(){
     //     parent::boot();
     //     static::creating(function($model){
@@ -31,10 +33,11 @@ class Order extends Model
     public function transaksi(){
         return $this->hasMany('App\Models\Transaksi','product_id','product_id')->orderBy('created_at');
     }
+    public function xxx(){
+        return $this->hasMany('App\Models\Hash1');
+    }
 
     public function hash_1(){
-        return $this->belongsToMany('App\Models\Hash1','hash_2','product_id_1','product_id_2')
-        ->withPivot('product_id')
-        ->withTimestamps();
+        return $this->hasMany('App\Models\Hash1','product_id','product_id');
     }
 }

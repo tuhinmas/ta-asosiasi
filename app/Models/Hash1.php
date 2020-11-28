@@ -39,8 +39,10 @@ class Hash1 extends Model
     }
 
     public function hash_1(){
-        return $this->belongsToMany('App\Models\Hash1','hash_2','product_id_1','product_id_2')
-                    ->withPivot('link')
-                    ->withTimestamps();
+        return $this->hasMany('App\Models\Hash1','link','link');
+    }
+
+    public function coba(){
+        return $this->hasMany('App\Models\Hash1','link','link');
     }
 }
