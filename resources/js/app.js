@@ -41,6 +41,8 @@ Vue.component('paginate', VuejsPaginate)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import Datepicker from 'vuejs-datepicker';
+Vue.component('datepicker',Datepicker);
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -53,10 +55,13 @@ Vue.component('customer-component', require('./components/customer/CustomerCompo
 Vue.component('transaction-component', require('./components/transaksi/TransactionComponent.vue').default);
 Vue.component('invoice-component', require('./components/transaksi/InvoiceDetailComponent.vue').default);
 Vue.component('riwayat-transaksi-component', require('./components/transaksi/RiwayatTransaksiComponent.vue').default);
+Vue.component('report-component', require('./components/transaksi/ReportComponent.vue').default);
 Vue.component('home-component', require('./components/HomeComponent.vue').default);
 Vue.component('parameter-component', require('./components/mining/ParameterComponent.vue').default);
 Vue.component('order-component', require('./components/mining/OrderComponent.vue').default);
 Vue.component('data-component', require('./components/mining/DataComponent.vue').default);
+Vue.component('results-component', require('./components/mining/TableResultsComponent.vue').default);
+Vue.component('grafik-component', require('./components/mining/GrafikComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -64,6 +69,7 @@ Vue.component('data-component', require('./components/mining/DataComponent.vue')
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import router from './router'
+import Vue from 'vue';
 Vue.router =router;
 const app = new Vue({
     router,

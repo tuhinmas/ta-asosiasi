@@ -63,9 +63,9 @@
     </style>
 </head>
 <body>
+    <center><h2>Toko Matahari</h2></center>
     <div class="header">
-        <h3>Laporan Bulan ini</h3>
-        <h4 style="line-height: 0px;">{{ $month->format('M-Y') }}</h4>
+        <h3>Laporan</h3><span>{{ $awal }}</span> sampai <span>{{ $akhir }}</span>
     </div>
     <div class="page">
         <table class="layout display responsive-table">

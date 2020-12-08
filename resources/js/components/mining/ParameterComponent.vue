@@ -74,8 +74,13 @@
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Proses</button>
-        <div class="alert alert-success" v-if="successMsg !== ''" v-html="successMsg"></div>
+        <div class="form-group">
+          <label>Hasil Dalam Bentuk:</label>
+            <select class="form-control" v-model="results_in">
+              <option v-for="parameter in this.hasil" :key="parameter.index"><b>{{ parameter }}</b></option>
+            </select>
+        </div>
+        <a class="btn btn-primary" :href="`/results-${results_in}/${support}/${confidence}`">Proses</a>
       </div>
     </div>
   </div>
@@ -97,9 +102,11 @@ export default {
     return {
       parameters: {},
       transaksi: {},
-      support: 2,
-      confidence: 2,
-      successMsg:''
+      support: 0.02,
+      confidence: 30,
+      successMsg: "",
+      hasil: ["Tabel", "Grafik"],
+      results_in: "Tabel"
     };
   },
   methods: {
@@ -114,8 +121,17 @@ export default {
         this.transaksi = response.data;
       });
     },
-    prosesDataMining(){
-      axios.post("api/data-mining")
+    prosesDataMining() {
+      axios
+        .get("/results", {
+          params: {
+            min_sup: this.support,
+            min_conf: this.confidence
+          }
+        })
+        .then(res => {
+          console.log(res.data);
+        });
     }
   }
 };

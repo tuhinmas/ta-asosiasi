@@ -26,4 +26,14 @@ class Hash2 extends Model
     public function getKeyType(){
         return 'string';
     }
+
+    public function id_1(){
+        return $this->hasOne('App\Models\Product','id','product_id_1',);
+    }
+    public function id_2(){
+        return $this->hasOne('App\Models\Product','id','product_id_2',);
+    }
+    public function count(){
+        return $this->count();
+    }
 }

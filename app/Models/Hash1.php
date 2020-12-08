@@ -45,4 +45,8 @@ class Hash1 extends Model
     public function coba(){
         return $this->hasMany('App\Models\Hash1','link','link');
     }
+
+    public function product_1(){
+        return $this->hasOne('App\Models\Product','id','product_id');
+    }
 }

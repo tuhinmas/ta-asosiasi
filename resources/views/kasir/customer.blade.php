@@ -6,7 +6,7 @@
 @section('konten')
 <div class="content-header"></div>
     <div id="app">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col">
                     <customer-component/>

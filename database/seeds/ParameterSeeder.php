@@ -13,12 +13,13 @@ class ParameterSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['min_support' => 1, 'min_confidence' => 1],
-            ['min_support' => 2, 'min_confidence' => 2],
-            ['min_support' => 3, 'min_confidence' => 3],
-            ['min_support' => 4, 'min_confidence' => 4],
-            ['min_support' => 5, 'min_confidence' => 5],
-            ['min_support' => 6, 'min_confidence' => 6],
+            ['min_support' => 0.01, 'min_confidence' => 25],
+            ['min_support' => 0.02, 'min_confidence' => 30],
+            ['min_support' => 0.03, 'min_confidence' => 35],
+            ['min_support' => 0.04, 'min_confidence' => 40],
+            ['min_support' => 0.05, 'min_confidence' => 45],
+            ['min_support' => 0.06, 'min_confidence' => 50],
+            ['min_support' => 0.07, 'min_confidence' => 60],
         ];
         foreach ($data as $params) {
             Parameter::create($params);

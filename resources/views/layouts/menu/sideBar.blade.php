@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="/template/dist/img/m-icon.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8">
 
@@ -36,19 +36,6 @@
                 <a href="/data-train" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Train</p>
-                </a>
-              </li>
-              
-              <li class="nav-item">
-                <a href="/results" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Result</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/grafik" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Grafik</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -124,7 +111,7 @@
 
               @if (Auth::check() && (Auth::user()->role_id == 2))
               <li class="nav-item">
-                <a href="{{ url('/pdf-transaction-report') }}" class="nav-link">
+                <a href="{{ url('/laporan') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan</p>
                 </a>

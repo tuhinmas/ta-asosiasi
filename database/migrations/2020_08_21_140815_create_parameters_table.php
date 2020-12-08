@@ -15,7 +15,7 @@ class CreateParametersTable extends Migration
     {
         Schema::create('parameters', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('min_support');
+            $table->float('min_support');
             $table->integer('min_confidence');
         });
     }

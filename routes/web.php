@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redis;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,19 @@ Route::middleware('auth')->group(function(){
     Route::view('/500','errors.500');
 
     //Data Mining
-    Route::view('/mining/data','mining.data');
-    Route::view('/mining/data1','mining.data1');
-    Route::view('/mining/grafik','mining.grafik');
-    Route::view('/parameter','mining.param');
-    Route::view('/order-of-item','mining.order');
-    Route::view('/data-train','mining.data');
+    Route::middleware('admin')->group(function(){
+        Route::view('/mining/data','mining.data');
+        Route::view('/data-train','mining.data');
+        Route::view('/mining/data1','mining.data1');
+        Route::view('/mining/grafik','mining.grafik');
+        Route::view('/results','mining.result');
+        Route::view('/parameter','mining.param');
+        Route::view('/order-of-item','mining.order');
+        Route::get('/pdf-transaction-report','PDFReportController@transaksi');
+        Route::view('/laporan','kasir.report');
+        Route::view('/results-Tabel/{support}/{confidence}','mining.result');
+        Route::view('/results-Grafik/{support}/{confidence}','mining.grafik');
+    });
 
     Route::view('/produk','kasir.produk');
     Route::view('/stok','kasir.stok');
@@ -38,10 +46,12 @@ Route::middleware('auth')->group(function(){
 
 Route::view('/xxx','orders.index');
 Auth::routes();
-
-Route::get('/pdf-transaction-report','PDFReportController@transaksi');
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/xxx', function () {
+//     $p = Redis::incr('p');
+//     return $p;
+// });
 
 
 

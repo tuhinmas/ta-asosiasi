@@ -31,6 +31,7 @@ Route::get('/parameter','MiningController@parameter');
 Route::get('/riwayat-transaksi','API\TransactionController@riwayat');
 Route::get('/resume-transaksi','API\DashboardController@index');
 Route::get('/xxx','API\ProductController@index');
+Route::get('/pdf-transaction-report','PDFReportController@transaksi');
 
 //Data Mining
 Route::get('/parameter','API\DataMining\ParameterController@parameter');
@@ -39,3 +40,5 @@ Route::get('/total-item','API\DataMining\OrderController@total');
 Route::get('/data-train','API\DataMining\DataTrainController@index');
 Route::get('/count-data-train','API\DataMining\DataTrainController@countDataTrain');
 Route::get('/data-mining','API\DataMining\DataMiningController@proses');
+
+Route::get('h1-results','API\DataMining\DataMiningController@results_table');

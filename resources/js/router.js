@@ -8,6 +8,8 @@ import data from "./components/mining/DataComponent";
 import produk from "./components/produk/ProdukComponent";
 import customer from "./components/customer/CustomerComponent";
 import riwayat from "./components/transaksi/InvoiceDetailComponent";
+import results from "./components/mining/TableResultsComponent";
+import grafik from "./components/mining/GrafikComponent";
 
 const router = new VueRouter({ // Then we register route for User management module.
   mode : 'history',
@@ -36,6 +38,16 @@ const router = new VueRouter({ // Then we register route for User management mod
       path:"/customer",
       name: "customer",
       component: customer
+    },
+    {
+      path:"/results-Tabel/:support/:conf",
+      name: "results-component",
+      component: results
+    },
+    {
+      path:"/results-Grafik/:support/:conf",
+      name: "grafik-component",
+      component: grafik
     },
   ],
 }); 

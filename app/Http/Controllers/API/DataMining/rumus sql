@@ -3,6 +3,22 @@ select p2.*, ord.id as id1, or_2.id as id_2, ((ord.id * 10) + or_2.id) mod 9091 
 //kandidat level 2 dari hash 1
 select * from hash_1 as p1 inner join hash_1 as p2 on p1.link=p2.link where p2.address > p1.address  order by p1.address,p2.address limit 50;
 
-//delete
-delete from hash_2 where id in (select id from (select id from hash_2 group by product_id_1, product_id_2 having count(*) < 10) tmp);
+//delete hash_2
+delete from hash_2 where id in (select id from (select id from hash_2 group by product_id_1, product_id_2 having count(*) < 1) tmp);
+
+
+//duplicate address hash_2
+select distinct(address) from hash_2 where address in (select address from hash_2 group by address having count(distinct product_id_1, product_id_2) > 1) order by address;
+
+//insert h3 join h2
+select p1.*, p2.product_id_1 as p2_1, p2.product_id_2 as p2_2 from hash_2 as p1 inner join hash_2 as p2 on p1.product_id_2 = p2.product_id_1 and p1.link = p2.link where p2.address > p1.address order by p1.product_id_1, p1.product_id_2, p2_1 limit 100;
+
+//delete < minimum support
+delete from hash_3 where id in(select id from(select id from hash_3 group by product_id_1, product_id_2, product_id_3 having count(*) < 2) tmp);
+
+//duplicate address h3
+select distinct(address) from hash_3 where address in (select address from hash_3 group by address having count(distinct product_id_1, product_id_2, product_id_3) > 1) order by address;
+
+
+//update address where duplicate
 
