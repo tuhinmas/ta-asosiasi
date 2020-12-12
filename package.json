@@ -33,6 +33,7 @@
         "jw-vue-pagination": "^1.0.3",
         "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.29.1",
+        "numeral": "^2.0.6",
         "sweetalert2": "^9.17.2",
         "vform": "^1.0.1",
         "vue-chartjs": "^3.5.1",

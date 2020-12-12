@@ -62,7 +62,11 @@ Vue.component('order-component', require('./components/mining/OrderComponent.vue
 Vue.component('data-component', require('./components/mining/DataComponent.vue').default);
 Vue.component('results-component', require('./components/mining/TableResultsComponent.vue').default);
 Vue.component('grafik-component', require('./components/mining/GrafikComponent.vue').default);
-
+Vue.component('MonthlySalesChart',require('./components/MonthlySalesChart.vue').default);
+Vue.component('chart-3-itemset',require('./components/Chart3Itemset.vue').default);
+Vue.component('LineChart',require('./components/LineChart.vue').default);
+Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').default);
+Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

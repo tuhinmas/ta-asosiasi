@@ -25,7 +25,7 @@
                     <td>{{ index+1 }}</td>
                     <td>{{ res.product_1.product_id }}</td>
                     <td>{{ res.product_1.product_name }}</td>
-                    <td>{{ toFix(res.sup / total * 100)}}</td>
+                    <td>{{ toFix(res.sup / total * 100)}} %</td>
                     <td>{{ res.sup }}</td>
                   </tr>
                 </tbody>
@@ -62,8 +62,8 @@
                       <b>-></b>
                       {{ lvl2.id_2.product_name }}
                     </td>
-                    <td>{{ toFix(lvl2.sup/ total * 100) }}</td>
-                    <td>{{ toFixConf(lvl2.conf) }}</td>
+                    <td>{{ toFix(lvl2.sup/ total * 100) }} %</td>
+                    <td>{{ toFixConf(lvl2.conf) }} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -101,8 +101,8 @@
                       <b>-></b>
                       {{ lvl3.id_3.product_name }}
                     </td>
-                    <td>{{ toFix(lvl3.sup/ total * 100) }}</td>
-                    <td>{{ toFixConf(lvl3.conf) }}</td>
+                    <td>{{ toFix(lvl3.sup/ total * 100) }} %</td>
+                    <td>{{ toFixConf(lvl3.conf) }} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -118,7 +118,7 @@
 export default {
   name: "results-component",
   created() {
-    this.getData(this.min_sup, this.min_conf);
+    // this.getData(this.min_sup, this.min_conf);
   },
   mounted() {
     let minimum_sup = this.$route.params.support;
@@ -164,7 +164,7 @@ export default {
         });
     },
     toFix(angka) {
-      return angka.toFixed(6);
+      return angka.toFixed(4);
     },
     toFixConf(angka) {
       return angka.toFixed(2);

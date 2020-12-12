@@ -123,7 +123,7 @@ class DataMiningController extends Controller
                 ->limit(10)
                 ->get();
         });
-        $lvl_1 = Cache::remember('lvl_1'.$sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
+        $lvl_1 = Cache::remember('lvl_1' . $sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
             return Hash1::select('hash_1.*', DB::raw('count(*) as sup'))
                 ->with('product_1')
                 ->groupBy('product_id')
@@ -134,19 +134,19 @@ class DataMiningController extends Controller
                 ->get();
         });
 
-        $lvl_2 = Cache::remember('lvl_2'.$sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
+        $lvl_2 = Cache::remember('lvl_2' . $sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
             return Hash2::select('hash_2.*', DB::raw('count(*) as sup'))
                 ->with('id_1')
                 ->with('id_2')
                 ->groupBy('product_id_1')
                 ->groupBy('product_id_2')
                 ->having(DB::raw('count(*)'), '>', $sup / (100 / $n_transaksi))
-                ->orderBy(DB::raw('sup','desc'))
-                ->limit(20)
+                ->orderBy(DB::raw('sup', 'desc'))
+                // ->limit(20)
                 ->get();
         });
 
-        $lvl_3 = Cache::remember('lvl_3'.$sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
+        $lvl_3 = Cache::remember('lvl_3' . $sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
             return Hash3::select('hash_3.*', DB::raw('count(*) as sup'))
                 ->with('id_1')
                 ->with('id_2')
@@ -155,13 +155,13 @@ class DataMiningController extends Controller
                 ->groupBy('product_id_2')
                 ->groupBy('product_id_3')
                 ->having(DB::raw('count(*)'), '>', ($sup / (100 / $n_transaksi)))
-                ->orderBy(DB::raw('sup','desc'))
-                ->limit(20)
+                ->orderBy(DB::raw('sup', 'desc'))
+                // ->limit(20)
                 ->get();
         });
         foreach ($lvl_2 as $lv_2) {
-            $cnf_2 = Cache::remember('cnf_2'.$lv_2->product_id_1, 24 * 60 * 60, function () use ($lv_2) {
-                return Hash2::where('product_id_1', $lv_2->product_id_1)
+            $cnf_2 = Cache::remember('cnf_2' . $lv_2->product_id_1, 24 * 60 * 60, function () use ($lv_2) {
+                return hash1::where('product_id', $lv_2->product_id_1)
                     ->count();
             });
             // $cnf_2 = Hash2::where('product_id_1', $lv_2->product_id_1)
@@ -169,9 +169,11 @@ class DataMiningController extends Controller
             $lv_2->conf = ($lv_2->sup / $cnf_2) * 100;
         }
         foreach ($lvl_3 as $lv_3) {
-            $cnf_3 = Cache::remember('cnf_3'.$lv_3->product_id_1.$lv_3->product_id_2, 24 * 60 * 60, function () use ($lv_3) {
-                return Hash3::where('product_id_1', $lv_3->product_id_1)
-                    ->where('product_id_2', $lv_3->product_id_2)
+            $cnf_3 = Cache::remember('cnf_3' . $lv_3->product_id_1 . $lv_3->product_id_2, 24 * 60 * 60, function () use ($lv_3) {
+                return Hash1::select('hash_1 as p1')
+                    ->join('hash_1 as p2','hash_1.link','=','p2.link')
+                    ->where('hash_1.product_id', $lv_3->product_id_1)
+                    ->where('p2.product_id', $lv_3->product_id_2)
                     ->count();
             });
             // $cnf_3 = Hash3::where('product_id_1', $lv_3->product_id_1)
@@ -179,12 +181,44 @@ class DataMiningController extends Controller
             //         ->count();
             $lv_3->conf = ($lv_3->sup / $cnf_3) * 100;
         }
+
+        $support_2 = [];
+        $conf_2 = [];
+        $label2 = [];
+        $idx = 0;
+        foreach ($lvl_2 as $lv2) {
+            if ($lv2->conf >= $conf) {
+                $label2[$idx] = $lv2->id_1->product_name . ',' . $lv2->id_2->product_name;
+                $support_2[$idx] = $lv2->sup / $n_transaksi*100;
+                $conf_2[$idx] = $lv2->conf  / 100;
+                $idx++;
+            }
+        };
+
+        $support_3 = [];
+        $conf_3 = [];
+        $label3 = [];
+        $index = 0;
+        foreach ($lvl_3 as $lbl) {
+            if ($lbl->conf >= $conf) {
+                $label3[$index] = $lbl->id_1->product_name . ',' . $lbl->id_2->product_name . ',' . $lbl->id_3->product_name;
+                $support_3[$index] = $lbl->sup / $n_transaksi * 100;
+                $conf_3[$index] = $lbl->conf /100;
+                $index++;
+            }
+        }
         return response()->json([
             'gak_laku' => $plg_rndah,
             'lvl_1' => $lvl_1,
             'lvl_2' => $lvl_2,
             'lvl_3' => $lvl_3,
-            'total_transaksi' => $n_transaksi
+            'total_transaksi' => $n_transaksi,
+            'label_2' => $label2,
+            'label_3' => $label3,
+            'support_2' => $support_2,
+            'support_3' => $support_3,
+            'conf_2' => $conf_2,
+            'conf_3' => $conf_3,
         ]);
     }
 }

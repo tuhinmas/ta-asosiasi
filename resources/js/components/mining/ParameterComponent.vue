@@ -28,7 +28,6 @@
     <div class="card card-default">
       <div class="card-header">
         <h3 class="card-title">Parameter</h3>
-
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
             <i class="fas fa-minus"></i>
@@ -76,9 +75,11 @@
       <div class="card-footer">
         <div class="form-group">
           <label>Hasil Dalam Bentuk:</label>
-            <select class="form-control" v-model="results_in">
-              <option v-for="parameter in this.hasil" :key="parameter.index"><b>{{ parameter }}</b></option>
-            </select>
+          <select class="form-control" v-model="results_in">
+            <option v-for="parameter in this.hasil" :key="parameter.index">
+              <b>{{ parameter }}</b>
+            </option>
+          </select>
         </div>
         <a class="btn btn-primary" :href="`/results-${results_in}/${support}/${confidence}`">Proses</a>
       </div>
@@ -96,7 +97,7 @@ export default {
   mounted() {
     this.getData();
     this.getDataTransaksi();
-    console.log("Component mounted.");
+    console.log("Component mounted.", this.getData());
   },
   data() {
     return {
