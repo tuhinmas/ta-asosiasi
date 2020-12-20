@@ -130,14 +130,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/user" class="nav-link">
+                <a href="/petunjuk" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Petunjuk</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="/user" class="nav-link">
+                <a href="/about" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>About</p>
                 </a>

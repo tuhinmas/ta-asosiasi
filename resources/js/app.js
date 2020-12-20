@@ -67,6 +67,9 @@ Vue.component('chart-3-itemset',require('./components/Chart3Itemset.vue').defaul
 Vue.component('LineChart',require('./components/LineChart.vue').default);
 Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').default);
 Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').default);
+Vue.component('petunjuk-component',require('./components/about/PetunjukComponent.vue').default);
+Vue.component('about-component',require('./components/about/AboutComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

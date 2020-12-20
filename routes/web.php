@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function(){
         Route::view('/laporan','kasir.report');
         Route::view('/results-Tabel/{support}/{confidence}','mining.result');
         Route::view('/results-Grafik/{support}/{confidence}','mining.grafik');
+        Route::view('/users','user.daftar_user');
     });
 
     Route::view('/produk','kasir.produk');
@@ -41,7 +42,8 @@ Route::middleware('auth')->group(function(){
     Route::view('/transaksi/invoice/{invoice}','kasir.invoice');
     Route::view('/riwayat-transaksi','kasir.riwayatTransaksi');
     Route::view('/report','kasir.report');
-    Route::view('/users','user.daftar_user');
+    Route::view('/petunjuk','about.petunjuk');
+    Route::view('/about','about.about');
 });
 
 Route::view('/xxx','orders.index');

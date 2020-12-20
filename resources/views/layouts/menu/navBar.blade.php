@@ -2,26 +2,26 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        {{-- <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> --}}
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/') }}" class="nav-link">Beranda</a>
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/mining/data1') }}" class="nav-link">Transaksi</a>
+        <a href="{{ url('/transaksi') }}" class="nav-link">Transaksi</a>
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Stok</a>
+        <a href="{{ url('/diskon') }}" class="nav-link">Diskon</a>
       </li>
       
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Kontak</a>
+        <a href="{{ url('/petunjuk') }}" class="nav-link">Petunjuk</a>
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">About</a>
+        <a href="{{ url('/about') }}" class="nav-link">About</a>
       </li>
     </ul>
 

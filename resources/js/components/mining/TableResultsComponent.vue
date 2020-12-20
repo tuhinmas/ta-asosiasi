@@ -3,12 +3,18 @@
     <div class="row">
       <div class="col-xl-12">
         <div class="card m-b-30">
-          <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-8">
-                <h4 class="mt-0 header-title">Produk Paling Tidak Laku</h4>
-              </div>
+          <div class="card-header">
+            <div class="card-title"><b>Produk Paling Tidak Laku</b></div>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
+          </div>
+          <div class="card-body">
             <div class="table-responsive">
               <table class="table table-hover table-lg" id="transaction-table">
                 <thead>
@@ -38,12 +44,18 @@
     <div class="row mt-3">
       <div class="col-xl-12">
         <div class="card m-b-30">
-          <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-8">
-                <h4 class="mt-0 header-title">2 Item Bersamaan Paling Laku</h4>
-              </div>
+          <div class="card-header">
+            <div class="card-title"><b>2 Item Bersamaan Paling Laku</b></div>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
+          </div>
+          <div class="card-body">
             <div class="table-responsive">
               <table class="table table-hover table-lg" id="transaction-table">
                 <thead>
@@ -75,12 +87,18 @@
     <div class="row mt-3">
       <div class="col-xl-12">
         <div class="card m-b-30">
-          <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-8">
-                <h4 class="mt-0 header-title">3 Item Bersamaan Paling Laku</h4>
-              </div>
+          <div class="card-header">
+            <div class="card-title"><b>3 Item Bersamaan Paling Laku</b></div>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
+          </div>
+          <div class="card-body">
             <div class="table-responsive">
               <table class="table table-hover table-lg" id="transaction-table">
                 <thead>
@@ -136,7 +154,7 @@ export default {
       min_conf: "",
       total: "",
       lvl2: [],
-      lvl3:[]
+      lvl3: []
     };
   },
   methods: {
@@ -152,15 +170,15 @@ export default {
           this.results = response.data;
           this.total = this.results.total_transaksi;
           let cnf = this.min_conf;
-          this.lvl2 = this.results.lvl_2.filter(function(lvl){
+          this.lvl2 = this.results.lvl_2.filter(function(lvl) {
             return lvl.conf >= cnf;
           });
 
           let cnf_3 = this.min_conf;
-          this.lvl3 = this.results.lvl_3.filter(function(lv){
-            return lv.conf >= cnf_3; 
+          this.lvl3 = this.results.lvl_3.filter(function(lv) {
+            return lv.conf >= cnf_3;
           });
-          console.log("lvl 3",this.lvl3);
+          console.log("lvl 3", this.lvl3);
         });
     },
     toFix(angka) {

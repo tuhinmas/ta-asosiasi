@@ -223,7 +223,7 @@ export default {
             let obj = this.cart.find(o => o.id === array.id);
 
             if(obj !== undefined) {
-                alertify.error('Barang sudah ditambahkan');
+                alertify.alert('Oops!','Barang sudah ditambahkan');
             }else{
                 this.cart.push(array);
             }

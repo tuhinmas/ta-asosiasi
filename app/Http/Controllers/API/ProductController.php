@@ -68,10 +68,13 @@ class ProductController extends Controller
         //     'stok' => $request->stok,
         // ]);
 
+        //insert ke order of item
         $order = new Order;
         $order->product_id = $product->id;
         $order->save();
         // dd($product->id);
+
+        //insert ke stok
         $stok = new Stok;
         // $stok->product_id = $request->id;
         $stok->stok = $request->jml;
