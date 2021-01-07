@@ -120,7 +120,7 @@ class DataMiningController extends Controller
                 ->groupBY('product_id')
                 ->having(DB::raw('count(product_id)'), '=', 1)
                 ->orderBy('created_at', 'desc')
-                ->limit(10)
+                ->limit(30)
                 ->get();
         });
         $lvl_1 = Cache::remember('lvl_1' . $sup, 24 * 60 * 60, function () use ($n_transaksi, $sup) {
@@ -130,7 +130,7 @@ class DataMiningController extends Controller
                 ->having(DB::raw('count(product_id)'), '>', $sup / (100 / $n_transaksi))
                 ->orderBy(DB::raw('count(*)'))
             //   ->count();
-                ->limit(10)
+                ->limit(30)
                 ->get();
         });
 
