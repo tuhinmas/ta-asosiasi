@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('authenticate','API\LoginController@authenticate');
 Route::group(['middleware' => 'auth'], function(){
     Route::apiResources(['users' => 'API\UserController']);
     Route::apiResources(['diskon' => 'API\DiskonController']);
@@ -23,6 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
 });
 Route::get('/searchProductForTransaction','API\TransactionController@search');
 Route::apiResources(['products' => 'API\ProductController']);
+
 // Route::get('/transaksi/invoice/{invoice}','API\TransactionController@invoice');
 Route::apiResources(['transaction' => 'API\TransactionController']);
 Route::get('/searchProduct','API\DiskonController@search');
@@ -40,5 +42,4 @@ Route::get('/total-item','API\DataMining\OrderController@total');
 Route::get('/data-train','API\DataMining\DataTrainController@index');
 Route::get('/count-data-train','API\DataMining\DataTrainController@countDataTrain');
 Route::get('/data-mining','API\DataMining\DataMiningController@proses');
-
 Route::get('h1-results','API\DataMining\DataMiningController@results_table');

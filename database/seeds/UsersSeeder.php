@@ -49,7 +49,7 @@ class UsersSeeder extends Seeder
                 'remember_token' => Str::random(10),
                 'role_id' => 1, 
             ],[
-                'name' => "Admin",
+                'name' => "Tuti",
                 'email' => "Admin@gmail.com",
                 'email_verified_at' => now(),
                 'password' => bcrypt('admin'), // password

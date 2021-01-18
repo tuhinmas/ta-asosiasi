@@ -335,13 +335,14 @@ export default {
         hitungKembalian() {
             let totalPrice = this.totalPrice;
             let bayar = this.bayar;
-
-            let kembalian = bayar - totalPrice;
-
+            let kembalian =null;
             if(this.bayar >= this.totalPrice) {
                 this.error = false;
             }
-
+            kembalian = bayar - totalPrice;
+            if(this.bayar == 0){
+                kembalian =0;
+            }
             this.kembalian = kembalian;   
         },
 

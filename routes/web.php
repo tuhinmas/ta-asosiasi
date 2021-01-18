@@ -49,7 +49,6 @@ Route::middleware('auth')->group(function(){
 Route::view('/xxx','orders.index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
 // Route::get('/xxx', function () {
 //     $p = Redis::incr('p');
 //     return $p;

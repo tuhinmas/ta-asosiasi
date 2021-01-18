@@ -19,6 +19,7 @@
               <tr>
                 <th>Name</th> 
                 <th>Email</th>
+                <th>Status</th>
                 <th></th>
               </tr>
             </thead>
@@ -27,7 +28,8 @@
               <tr v-for="user in users.data" :key="user.id">
                 <td class="align-middle">{{ user.name }}</td>
                 <td class="align-middle">{{ user.email }}</td>
-                <td class="align-middle">
+                <td class="align-middle">{{ user.user_role.name }}</td>
+                <td class="align-middle" v-if="user.user_role.id == 1">
                   <a href="" @click.prevent="editUser(user)">
                     <i class="fa fa-edit"></i>
                   </a>
@@ -98,6 +100,7 @@
     data() {
       return {
         users: {},
+        status:true,
         form: new Form({
           id: '',
           name: '',

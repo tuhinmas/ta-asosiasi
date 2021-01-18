@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Transaksi;
-use App\Models\Transaksi_detail;
 use App\User;
 use Carbon\Carbon;
+use App\Models\Product;
+use App\Models\Customer;
+use App\Models\Transaksi;
+use App\Models\Transaksi_detail;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Cache::remember('user', 60 * 60, function () {
-            return User::count();;
-        });
+        $user = auth()->user()->name;
         $allProducts = Cache::remember('allProduct', 60 * 60, function () {
             return Product::count();
         });

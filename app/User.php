@@ -80,10 +80,16 @@ class User extends Authenticatable
     // }
 
     public function role(){
-        $this->belongsTo('\App\Models\Role');
+        return $this->hashOne('\App\Models\Role','role_id','id');
     }
 
     public function transaksi_detail(){
         return $this->hasOne('App\Models\Transaksi_detail','id');
     }
+
+    public function user_role(){
+        return $this->hasOne('App\Models\Role','id','role_id');
+    }
+
+
 }

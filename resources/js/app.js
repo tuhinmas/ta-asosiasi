@@ -44,6 +44,9 @@ Vue.component('paginate', VuejsPaginate)
 import Datepicker from 'vuejs-datepicker';
 Vue.component('datepicker',Datepicker);
 
+require("bootstrap-css-only/css/bootstrap.min.css");
+require("mdbvue/lib/css/mdb.min.css");
+require("@fortawesome/fontawesome-free/css/all.min.css");
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-management-component', require('./components/UserManagement.vue').default);
@@ -69,6 +72,7 @@ Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').def
 Vue.component('grafik-coba-component',require('./components/grafikCoba.vue').default);
 Vue.component('petunjuk-component',require('./components/about/PetunjukComponent.vue').default);
 Vue.component('about-component',require('./components/about/AboutComponent.vue').default);
+Vue.component('login-component',require('./components/auth/LoginComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

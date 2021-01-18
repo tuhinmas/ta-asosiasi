@@ -27,8 +27,7 @@
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#exampleModal"
-                @click.prevent="showModal"
-              >
+                @click.prevent="showModal">
                 <i class="fas fa-Product-plus"></i>Add new Product
               </button>
               <!-- <div class="search-wrapper panel-heading col-sm-12"> -->
@@ -99,8 +98,7 @@
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
